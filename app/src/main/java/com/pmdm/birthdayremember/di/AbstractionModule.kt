@@ -2,9 +2,9 @@ package com.pmdm.birthdayremember.di
 
 import com.pmdm.birthdayremember.domain.repository.BirthdayRepository
 import com.pmdm.birthdayremember.infraestructure.room.repository.BirthdayRepositoryImpl
-import com.pmdm.birthdayremember.presentation.config.ChipConfigProvider
-import com.pmdm.birthdayremember.presentation.config.LobbyChipConfigProvider
+import com.pmdm.birthdayremember.presentation.components.Chip.config.ChipConfigProvider
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.config.LobbyChipConfigProvider
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

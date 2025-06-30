@@ -2,9 +2,9 @@ package com.pmdm.birthdayremember.presentation.components.TopBar
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
-data class TopBarAction(
+data class TopBarAction<T>(
     val icon: ImageVector,
     val description: String?,
-    val action: () -> Unit,
+    val event: T,
     val enabled: Boolean = true
 )

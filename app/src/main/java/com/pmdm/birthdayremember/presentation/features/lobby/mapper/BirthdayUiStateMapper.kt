@@ -1,7 +1,7 @@
-package com.pmdm.birthdayremember.presentation.features.lobby
+package com.pmdm.birthdayremember.presentation.features.lobby.mapper
 
 import com.pmdm.birthdayremember.domain.entity.Birthday
-import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
 
 fun Birthday.toUi() = BirthdayUiState(
     id,

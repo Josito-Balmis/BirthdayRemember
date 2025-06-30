@@ -1,4 +1,4 @@
-package com.pmdm.birthdayremember.presentation.model
+package com.pmdm.birthdayremember.presentation.features.lobby.model
 
 import com.pmdm.birthdayremember.domain.valueobject.Zodiac
 import java.time.LocalDate

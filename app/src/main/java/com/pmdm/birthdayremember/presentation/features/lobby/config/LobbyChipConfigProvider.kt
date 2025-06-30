@@ -1,17 +1,18 @@
-package com.pmdm.birthdayremember.presentation.config
+package com.pmdm.birthdayremember.presentation.features.lobby.config
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.CardGiftcard
 import androidx.compose.material.icons.twotone.Check
 import androidx.compose.material.icons.twotone.Pix
 import com.pmdm.birthdayremember.presentation.components.Chip.ChipAction
+import com.pmdm.birthdayremember.presentation.components.Chip.config.ChipConfigProvider
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LobbyChipConfigProvider : ChipConfigProvider<LobbyEvent> {
-
-    override fun getChips(
-        onClick: (LobbyEvent) -> Unit
-    ): List<ChipAction<LobbyEvent>> {
+@Singleton
+class LobbyChipConfigProvider @Inject constructor() : ChipConfigProvider<LobbyEvent> {
+    override fun getChips(): List<ChipAction<LobbyEvent>> {
         return listOf(
             ChipAction(
                 text = "Cumpleaños",
@@ -19,7 +20,7 @@ class LobbyChipConfigProvider : ChipConfigProvider<LobbyEvent> {
                 iconTrailing = Icons.TwoTone.Check,
                 descriptionAvatar = null,
                 descriptionTrailing = null,
-                onClick = { onClick(LobbyEvent.OnSelectGroup(1)) },
+                onClick = LobbyEvent.OnSelectGroup(1),
                 enabled = true,
             ),
             ChipAction(
@@ -28,7 +29,7 @@ class LobbyChipConfigProvider : ChipConfigProvider<LobbyEvent> {
                 iconTrailing = Icons.TwoTone.Pix,
                 descriptionAvatar = null,
                 descriptionTrailing = null,
-                onClick = onClick,
+                onClick = LobbyEvent.OnSelectGroup(2),
                 enabled = false
             ),
             ChipAction(
@@ -37,7 +38,7 @@ class LobbyChipConfigProvider : ChipConfigProvider<LobbyEvent> {
                 iconTrailing = Icons.TwoTone.Pix,
                 descriptionAvatar = null,
                 descriptionTrailing = null,
-                onClick = onClick,
+                onClick = LobbyEvent.OnSelectGroup(3),
                 enabled = false
             )
         )

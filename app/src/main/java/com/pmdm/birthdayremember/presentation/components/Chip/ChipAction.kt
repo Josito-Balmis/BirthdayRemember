@@ -9,5 +9,5 @@ data class ChipAction<T>(
     val descriptionAvatar: String?,
     val descriptionTrailing: String?,
     val enabled: Boolean = false,
-    val onClick: (T) -> Unit
+    val onClick: T
 )

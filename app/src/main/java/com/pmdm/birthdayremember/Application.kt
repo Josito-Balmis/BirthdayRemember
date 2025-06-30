@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 @HiltAndroidApp
 class Application : Application() {
 
+    // It's a usecase for load the initial groups throught files such as JSON
     @Inject
     lateinit var seedGroupUseCase: SeedGroupsUseCase
 

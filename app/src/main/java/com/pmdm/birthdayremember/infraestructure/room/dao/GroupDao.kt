@@ -12,7 +12,7 @@ interface GroupDao {
     suspend fun get(): List<GroupEntity>
 
     @Query("SELECT * FROM GroupEntity WHERE id = :id")
-    suspend fun get(id: Long): GroupEntity
+    suspend fun get(id: Int): GroupEntity
 
     @Insert
     suspend fun insert(groupEntity: GroupEntity)
@@ -21,7 +21,7 @@ interface GroupDao {
     suspend fun update(groupEntity: GroupEntity)
 
     @Query("DELETE FROM GroupEntity WHERE id = :id")
-    suspend fun delete(id: Long)
+    suspend fun delete(id: Int)
 
     @Query("SELECT COUNT(*) FROM GroupEntity")
     suspend fun count() : Int

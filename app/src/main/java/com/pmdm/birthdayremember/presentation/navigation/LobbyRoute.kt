@@ -14,8 +14,10 @@ fun NavGraphBuilder.displayLobbyDestination(
 ) {
     composable<LobbyRoute> {
         LobbyScreen(
-            listChipActions = vm.listChipAction.value,
-            listBirthdays = vm.birthdays.value
+            listChipActions = vm.listChipActions.value,
+            listBirthdays = vm.birthdays.value,
+            listTopBarActions = vm.listTopBarActions.value,
+            onLobbyEvent = vm::onLobbyEvent
         )
     }
 }

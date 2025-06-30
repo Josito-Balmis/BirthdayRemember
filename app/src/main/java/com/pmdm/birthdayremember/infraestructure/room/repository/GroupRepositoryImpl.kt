@@ -18,7 +18,7 @@ class GroupRepositoryImpl @Inject constructor(
         dao.get().toListDomain()
     }
 
-    override suspend fun get(id: Long): Group = withContext(Dispatchers.IO) {
+    override suspend fun get(id: Int): Group = withContext(Dispatchers.IO) {
         dao.get(id).toDomain()
     }
 
@@ -30,7 +30,7 @@ class GroupRepositoryImpl @Inject constructor(
         dao.update(group.toDao())
     }
 
-    override suspend fun delete(id: Long) = withContext(Dispatchers.IO) {
+    override suspend fun delete(id: Int) = withContext(Dispatchers.IO) {
         dao.delete(id)
     }
 }

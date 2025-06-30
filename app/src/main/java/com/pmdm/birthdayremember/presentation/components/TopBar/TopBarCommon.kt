@@ -10,10 +10,11 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarCommon(
+fun <T> TopBarCommon(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior,
-    actions: List<TopBarAction>
+    actions: List<TopBarAction<T>>,
+    onlick: (T) -> Unit
 ) {
     TopAppBar(
         modifier = modifier,
@@ -26,7 +27,7 @@ fun TopBarCommon(
                         Icon(imageVector = it.icon, contentDescription = it.description)
                     },
                     enabled = it.enabled,
-                    onClick = { it.action() }
+                    onClick = { onlick(it.event) }
                 )
             }
         },
