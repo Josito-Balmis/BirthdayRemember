@@ -22,7 +22,8 @@ Breve descripción del proyecto: qué hace, para quién está pensado y por qué
 ## 📸 Capturas de pantalla
 
 > (Coloca aquí imágenes de la app en uso si es visual o enlaces a GIFs)
- NOT YET
+
+NOT YET
 
 ---
 
