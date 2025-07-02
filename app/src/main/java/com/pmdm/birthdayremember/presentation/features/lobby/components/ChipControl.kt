@@ -14,8 +14,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.pmdm.birthdayremember.presentation.components.Chip.ChipAction
-import com.pmdm.birthdayremember.presentation.components.Chip.ChipCommon
+import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
+import com.pmdm.birthdayremember.presentation.components.chip.ChipCommon
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.MIN_DP
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
@@ -28,11 +28,11 @@ fun ChipControl(
 
     Row(Modifier.horizontalScroll(scrollState)) {
         listChipActions.forEach { chipAction ->
+            Spacer(Modifier.padding(MIN_DP))
+
             ChipCommon(
                 chipAction = chipAction,
             )
-
-            Spacer(Modifier.padding(MIN_DP))
         }
     }
 }

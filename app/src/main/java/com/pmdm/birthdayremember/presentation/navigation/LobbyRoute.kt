@@ -17,7 +17,8 @@ fun NavGraphBuilder.displayLobbyDestination(
             listChipActions = vm.listChipActions.value,
             listBirthdays = vm.birthdays.value,
             listTopBarActions = vm.listTopBarActions.value,
-            onLobbyEvent = vm::onLobbyEvent
+            listBottomBarActions = vm.listBottomBarAction.value,
+            onLobbyEvent = vm::onLobbyEvent,
         )
     }
 }

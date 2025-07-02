@@ -1,4 +1,4 @@
-package com.pmdm.birthdayremember.presentation.components.Chip
+package com.pmdm.birthdayremember.presentation.components.chip
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon

@@ -4,8 +4,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.CardGiftcard
 import androidx.compose.material.icons.twotone.Check
 import androidx.compose.material.icons.twotone.Pix
-import com.pmdm.birthdayremember.presentation.components.Chip.ChipAction
-import com.pmdm.birthdayremember.presentation.components.Chip.config.ChipConfigProvider
+import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
+import com.pmdm.birthdayremember.presentation.components.chip.config.ChipConfigProvider
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
 import javax.inject.Inject
 import javax.inject.Singleton

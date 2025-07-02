@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pmdm.birthdayremember.application.usecase.birthday.GetListBirthdaysUseCase
-import com.pmdm.birthdayremember.presentation.components.Chip.ChipAction
-import com.pmdm.birthdayremember.presentation.components.Chip.config.ChipConfigProvider
-import com.pmdm.birthdayremember.presentation.components.TopBar.TopBarAction
+import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
+import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
+import com.pmdm.birthdayremember.presentation.components.chip.config.ChipConfigProvider
+import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
+import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyBottomBarActionsConfig
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyTopBarActionsConfig
 import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toListUi
 import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
@@ -34,10 +36,17 @@ class LobbyVM @Inject constructor(
     val listTopBarActions: StateFlow<List<TopBarAction<LobbyEvent>>> =
         _listTopBarActions.asStateFlow()
 
+    private val _listBottomBarActions = MutableStateFlow<List<BottomBarAction<LobbyEvent>>>(
+        emptyList()
+    )
+    val listBottomBarAction: StateFlow<List<BottomBarAction<LobbyEvent>>> =
+        _listBottomBarActions.asStateFlow()
+
     // Constructors
     init {
         viewModelScope.launch {
             loadTopBarActions()
+            loadBottomBarActions()
             loadChipActions()
             loadBirthdays()
         }
@@ -49,6 +58,9 @@ class LobbyVM @Inject constructor(
             is LobbyEvent.OnSelectGroup -> {}
             LobbyEvent.OnButtonFilter -> {}
             LobbyEvent.OnButtonSearch -> {}
+            LobbyEvent.OnNavigateCalendar -> {}
+            LobbyEvent.OnNavigateLobby -> {}
+            LobbyEvent.OnCreateBirthday -> {}
         }
     }
 
@@ -70,5 +82,9 @@ class LobbyVM @Inject constructor(
 
     private fun loadTopBarActions() {
         _listTopBarActions.value = lobbyTopBarActionsConfig()
+    }
+
+    private fun loadBottomBarActions() {
+        _listBottomBarActions.value = lobbyBottomBarActionsConfig()
     }
 }

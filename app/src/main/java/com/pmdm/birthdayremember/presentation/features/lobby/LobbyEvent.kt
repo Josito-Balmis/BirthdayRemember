@@ -4,4 +4,7 @@ sealed interface LobbyEvent {
     data class OnSelectGroup(val groupId: Int) : LobbyEvent
     data object OnButtonSearch : LobbyEvent
     data object OnButtonFilter : LobbyEvent
+    data object OnNavigateLobby : LobbyEvent
+    data object OnNavigateCalendar : LobbyEvent
+    data object OnCreateBirthday : LobbyEvent
 }

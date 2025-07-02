@@ -1,4 +1,4 @@
-package com.pmdm.birthdayremember.presentation.components.TopBar
+package com.pmdm.birthdayremember.presentation.components.topbar
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
