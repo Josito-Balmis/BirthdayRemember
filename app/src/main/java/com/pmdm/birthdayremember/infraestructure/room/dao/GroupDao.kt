@@ -12,7 +12,7 @@ interface GroupDao {
     suspend fun get(): List<GroupEntity>
 
     @Query("SELECT * FROM GroupEntity WHERE id = :id")
-    suspend fun get(id: Int): GroupEntity
+    suspend fun get(id: Int): GroupEntity?
 
     @Insert
     suspend fun insert(groupEntity: GroupEntity)

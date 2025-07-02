@@ -1,6 +1,9 @@
 package com.pmdm.birthdayremember.presentation.components.chip
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BrokenImage
+import androidx.compose.material.icons.twotone.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
@@ -9,27 +12,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun <T> ChipCommon(
+fun <Event> ChipCommon(
     modifier: Modifier = Modifier,
-    chipAction: ChipAction<T>,
+    action: ChipAction<Event>,
+    onEvent: (Event) -> Unit
 ) {
     InputChip(
         modifier = modifier,
-        selected = chipAction.enabled,
-        onClick = { chipAction.onClick },
-        label = { Text(chipAction.text) },
+        selected = action.isSelected,
+        onClick = { onEvent(action.event) },
+        label = { Text(action.name) },
         avatar = {
             Icon(
-                imageVector = chipAction.iconAvatar,
-                contentDescription = chipAction.descriptionAvatar,
+                imageVector = action.icon ?: Icons.Default.BrokenImage,
+                contentDescription = null,
                 modifier = Modifier.size(InputChipDefaults.AvatarSize)
             )
         },
         trailingIcon = {
-            if (chipAction.enabled)
+            if (action.isSelected)
                 Icon(
-                    imageVector = chipAction.iconTrailing,
-                    contentDescription = chipAction.descriptionTrailing,
+                    imageVector = Icons.TwoTone.Check,
+                    contentDescription = null,
                     modifier = Modifier.size(InputChipDefaults.AvatarSize)
                 )
         }

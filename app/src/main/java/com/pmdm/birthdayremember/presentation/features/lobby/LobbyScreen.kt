@@ -18,13 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarCommon
-import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarCommon
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ChipControl
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ListBirthdays
 import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 
 // Constants
@@ -34,7 +34,7 @@ val MIN_DP = 5.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LobbyScreen(
-    listChipActions: List<ChipAction<LobbyEvent>>,
+    listGroups: List<GroupUiState>,
     listBirthdays: List<BirthdayUiState>,
     listTopBarActions: List<TopBarAction<LobbyEvent>>,
     listBottomBarActions: List<BottomBarAction<LobbyEvent>>,
@@ -65,7 +65,8 @@ fun LobbyScreen(
         Surface(Modifier.padding(it)) {
             Column(Modifier.fillMaxWidth()) {
                 ChipControl(
-                    listChipActions = listChipActions
+                    listGroups = listGroups,
+                    onLobbyEvent = onLobbyEvent
                 )
 
                 ListBirthdays(listBirthdays)
@@ -80,7 +81,9 @@ fun PreviewLobbyScreen() {
     BirthDayTheme {
         Surface(Modifier.fillMaxSize()) {
             LobbyScreen(
-                listChipActions = listOf(),
+                listGroups = listOf(
+                    GroupUiState(name = "Hola")
+                ),
                 listBirthdays = listOf(),
                 listTopBarActions = listOf(),
                 onLobbyEvent = {},

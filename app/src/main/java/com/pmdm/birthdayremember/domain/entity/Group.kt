@@ -8,7 +8,7 @@ data class Group(
         require(name.isNotBlank()) {
             "El nombre del grupo no puede estar vacio."
         }
-        require(name.all { it.isDigit() }) {
+        require(name.all { !it.isDigit() }) {
             "El nombre del grupo no puede contener números."
         }
     }

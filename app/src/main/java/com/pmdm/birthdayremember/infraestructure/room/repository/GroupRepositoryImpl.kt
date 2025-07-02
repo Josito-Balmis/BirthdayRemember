@@ -18,8 +18,8 @@ class GroupRepositoryImpl @Inject constructor(
         dao.get().toListDomain()
     }
 
-    override suspend fun get(id: Int): Group = withContext(Dispatchers.IO) {
-        dao.get(id).toDomain()
+    override suspend fun get(id: Int): Group? = withContext(Dispatchers.IO) {
+        dao.get(id)?.toDomain()
     }
 
     override suspend fun insert(group: Group) = withContext(Dispatchers.IO) {

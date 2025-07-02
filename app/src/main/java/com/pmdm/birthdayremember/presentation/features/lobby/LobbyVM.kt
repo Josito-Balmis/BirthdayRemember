@@ -4,50 +4,54 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pmdm.birthdayremember.application.usecase.birthday.GetListBirthdaysUseCase
+import com.pmdm.birthdayremember.application.usecase.group.GetGroupUseCase
+import com.pmdm.birthdayremember.application.usecase.group.GetGroupsUseCase
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
-import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
-import com.pmdm.birthdayremember.presentation.components.chip.config.ChipConfigProvider
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyBottomBarActionsConfig
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyTopBarActionsConfig
 import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toListUi
+import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toUi
 import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LobbyVM @Inject constructor(
     private val getListBirthdaysUseCase: GetListBirthdaysUseCase,
-    private val lobbyChipConfigProvider: ChipConfigProvider<LobbyEvent>
+    private val getGroupsUseCase: GetGroupsUseCase,
+    private val getGroupUseCase: GetGroupUseCase
 ) : ViewModel() {
 
     // Properties
     private val _listBirthdays = MutableStateFlow<List<BirthdayUiState>>(emptyList())
-    val birthdays: StateFlow<List<BirthdayUiState>> = _listBirthdays.asStateFlow()
+    val birthdays = _listBirthdays.asStateFlow()
 
-    private val _listChipActions = MutableStateFlow<List<ChipAction<LobbyEvent>>>(emptyList())
-    val listChipActions: StateFlow<List<ChipAction<LobbyEvent>>> = _listChipActions.asStateFlow()
+    private val _listGroups = MutableStateFlow<List<GroupUiState>>(emptyList())
+    val listGroups = _listGroups.asStateFlow()
 
     private val _listTopBarActions = MutableStateFlow<List<TopBarAction<LobbyEvent>>>(emptyList())
-    val listTopBarActions: StateFlow<List<TopBarAction<LobbyEvent>>> =
-        _listTopBarActions.asStateFlow()
+    val listTopBarActions = _listTopBarActions.asStateFlow()
 
     private val _listBottomBarActions = MutableStateFlow<List<BottomBarAction<LobbyEvent>>>(
         emptyList()
     )
-    val listBottomBarAction: StateFlow<List<BottomBarAction<LobbyEvent>>> =
-        _listBottomBarActions.asStateFlow()
+    val listBottomBarAction = _listBottomBarActions.asStateFlow()
+
+    private val _groupSelectedUiState = MutableStateFlow(GroupUiState())
+    val groupSelectedUiState = _groupSelectedUiState.asStateFlow()
 
     // Constructors
     init {
         viewModelScope.launch {
             loadTopBarActions()
             loadBottomBarActions()
-            loadChipActions()
+            loadListGroups()
             loadBirthdays()
         }
     }
@@ -55,13 +59,37 @@ class LobbyVM @Inject constructor(
     // Events
     fun onLobbyEvent(lobbyEvent: LobbyEvent) {
         when (lobbyEvent) {
-            is LobbyEvent.OnSelectGroup -> {}
+            is LobbyEvent.OnSelectGroup -> onSelectGroup(lobbyEvent)
             LobbyEvent.OnButtonFilter -> {}
             LobbyEvent.OnButtonSearch -> {}
             LobbyEvent.OnNavigateCalendar -> {}
             LobbyEvent.OnNavigateLobby -> {}
             LobbyEvent.OnCreateBirthday -> {}
         }
+    }
+
+    private fun onSelectGroup(event: LobbyEvent.OnSelectGroup) {
+        // Update an element of our listGroup, in specific the isSelected
+        _listGroups.update {
+            it.map { groupUi ->
+                if (groupUi.id == event.groupId && groupUi.isSelected.not())
+                    groupUi.copy(isSelected = true)
+                else groupUi.copy(isSelected = false)
+            }
+        }
+
+        // Save the group selected
+        _groupSelectedUiState.value = _listGroups.value.find {
+            it.isSelected
+        } ?: GroupUiState()
+    }
+
+    private fun onButtonFilter() {
+
+    }
+
+    private fun onButtonSearch() {
+
     }
 
     // Load Functions
@@ -76,8 +104,12 @@ class LobbyVM @Inject constructor(
             }
     }
 
-    private fun loadChipActions() {
-        _listChipActions.value = lobbyChipConfigProvider.getChips()
+    private suspend fun loadListGroups() {
+        val result = getGroupsUseCase()
+
+        result.onSuccess {
+            _listGroups.value = it.toListUi()
+        }
     }
 
     private fun loadTopBarActions() {
@@ -87,4 +119,17 @@ class LobbyVM @Inject constructor(
     private fun loadBottomBarActions() {
         _listBottomBarActions.value = lobbyBottomBarActionsConfig()
     }
+
+    private fun loadGroupUiState(idGroup: Int) {
+        viewModelScope.launch {
+            val result = getGroupUseCase(idGroup)
+
+            result.onFailure {
+                Log.e(this.javaClass.name, it.message!!)
+            }.onSuccess { group ->
+                _groupSelectedUiState.value = group.toUi()
+            }
+        }
+    }
+
 }
