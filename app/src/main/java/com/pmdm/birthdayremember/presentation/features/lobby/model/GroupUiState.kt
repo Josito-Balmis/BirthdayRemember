@@ -3,6 +3,7 @@ package com.pmdm.birthdayremember.presentation.features.lobby.model
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
 
 data class GroupUiState(

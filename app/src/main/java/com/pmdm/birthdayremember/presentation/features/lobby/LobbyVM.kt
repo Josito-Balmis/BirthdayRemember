@@ -46,6 +46,9 @@ class LobbyVM @Inject constructor(
     private val _groupSelectedUiState = MutableStateFlow(GroupUiState())
     val groupSelectedUiState = _groupSelectedUiState.asStateFlow()
 
+    private val _showBottomSheet = MutableStateFlow(false)
+    val showBottomSheet = _showBottomSheet.asStateFlow()
+
     // Constructors
     init {
         viewModelScope.launch {
@@ -60,11 +63,12 @@ class LobbyVM @Inject constructor(
     fun onLobbyEvent(lobbyEvent: LobbyEvent) {
         when (lobbyEvent) {
             is LobbyEvent.OnSelectGroup -> onSelectGroup(lobbyEvent)
-            LobbyEvent.OnButtonFilter -> onButtonFilter()
-            LobbyEvent.OnButtonSearch -> onButtonSearch()
-            LobbyEvent.OnNavigateCalendar -> {}
-            LobbyEvent.OnNavigateLobby -> {}
-            LobbyEvent.OnCreateBirthday -> {}
+            is LobbyEvent.OnButtonFilter -> onButtonFilter()
+            is LobbyEvent.OnButtonSearch -> onButtonSearch()
+            is LobbyEvent.OnNavigateCalendar -> {}
+            is LobbyEvent.OnNavigateLobby -> {}
+            is LobbyEvent.OnCreateBirthday -> {}
+            is LobbyEvent.OnShowCreateEvent -> onShowCreateEvent(lobbyEvent)
         }
     }
 
@@ -78,7 +82,7 @@ class LobbyVM @Inject constructor(
             }
         }
 
-        // Save the group selected
+        // Found the group selected and asign his value to the atribute
         _groupSelectedUiState.value = _listGroups.value.find {
             it.isSelected
         } ?: GroupUiState()
@@ -90,6 +94,10 @@ class LobbyVM @Inject constructor(
 
     private fun onButtonSearch() {
 
+    }
+
+    private fun onShowCreateEvent(event: LobbyEvent.OnShowCreateEvent) {
+        _showBottomSheet.value = event.isShow
     }
 
     // Load Functions

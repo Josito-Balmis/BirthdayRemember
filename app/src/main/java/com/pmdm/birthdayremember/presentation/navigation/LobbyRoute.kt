@@ -19,6 +19,7 @@ fun NavGraphBuilder.displayLobbyDestination(
         val listBirthdays by vm.birthdays.collectAsState()
         val listTopBarActions by vm.listTopBarActions.collectAsState()
         val listBottomBarActions by vm.listBottomBarAction.collectAsState()
+        val showBottomSheet by vm.showBottomSheet.collectAsState()
 
         LobbyScreen(
             listGroups = listGroups,
@@ -26,6 +27,7 @@ fun NavGraphBuilder.displayLobbyDestination(
             listTopBarActions = listTopBarActions,
             listBottomBarActions = listBottomBarActions,
             onLobbyEvent = vm::onLobbyEvent,
+            showBottomSheet = showBottomSheet,
         )
     }
 }

@@ -1,17 +1,16 @@
 package com.pmdm.birthdayremember.presentation.features.lobby
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PersonPin
 import androidx.compose.material.icons.twotone.CardGiftcard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +20,7 @@ import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarComm
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarCommon
+import com.pmdm.birthdayremember.presentation.features.lobby.components.BottomSheetCommon
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ChipControl
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ListBirthdays
 import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
@@ -38,9 +38,11 @@ fun LobbyScreen(
     listBirthdays: List<BirthdayUiState>,
     listTopBarActions: List<TopBarAction<LobbyEvent>>,
     listBottomBarActions: List<BottomBarAction<LobbyEvent>>,
-    onLobbyEvent: (LobbyEvent) -> Unit
+    showBottomSheet: Boolean,
+    onLobbyEvent: (LobbyEvent) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     Scaffold(
         topBar = {
@@ -57,7 +59,7 @@ fun LobbyScreen(
                 floatingAction = FloatingActionButton<LobbyEvent>(
                     icon = Icons.TwoTone.CardGiftcard,
                     description = "Button for add a new birthday",
-                    event = LobbyEvent.OnCreateBirthday
+                    event = LobbyEvent.OnShowCreateEvent(true)
                 )
             )
         }
@@ -70,6 +72,12 @@ fun LobbyScreen(
                 )
 
                 ListBirthdays(listBirthdays)
+
+                if (showBottomSheet)
+                    BottomSheetCommon(
+                        sheetState = sheetState,
+                        onLobbyEvent = onLobbyEvent
+                    )
             }
         }
     }
@@ -87,21 +95,11 @@ fun PreviewLobbyScreen() {
                 listBirthdays = listOf(),
                 listTopBarActions = listOf(),
                 onLobbyEvent = {},
-                listBottomBarActions = listOf()
+                listBottomBarActions = listOf(),
+                showBottomSheet = TODO()
             )
         }
     }
-}
-
-// Not used
-@Composable
-fun ChooseTypeImage(modifier: Modifier, image: String?) {
-    if (image == null)
-        Image(
-            modifier = modifier,
-            imageVector = Icons.Filled.PersonPin,
-            contentDescription = "Generic icon from birthday person"
-        )
 }
 
 

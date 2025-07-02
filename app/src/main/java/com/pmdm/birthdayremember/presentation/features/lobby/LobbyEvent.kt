@@ -7,4 +7,5 @@ sealed interface LobbyEvent {
     data object OnNavigateLobby : LobbyEvent
     data object OnNavigateCalendar : LobbyEvent
     data object OnCreateBirthday : LobbyEvent
+    data class OnShowCreateEvent(val isShow: Boolean) : LobbyEvent
 }
