@@ -20,7 +20,7 @@ import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarComm
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarCommon
-import com.pmdm.birthdayremember.presentation.features.lobby.components.BottomSheetCommon
+import com.pmdm.birthdayremember.presentation.features.lobby.components.BottomSheetAddEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ChipControl
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ListBirthdays
 import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
@@ -74,7 +74,7 @@ fun LobbyScreen(
                 ListBirthdays(listBirthdays)
 
                 if (showBottomSheet)
-                    BottomSheetCommon(
+                    BottomSheetAddEvent(
                         sheetState = sheetState,
                         onLobbyEvent = onLobbyEvent
                     )
