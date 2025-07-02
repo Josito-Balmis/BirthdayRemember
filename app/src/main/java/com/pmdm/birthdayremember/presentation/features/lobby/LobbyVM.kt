@@ -60,8 +60,8 @@ class LobbyVM @Inject constructor(
     fun onLobbyEvent(lobbyEvent: LobbyEvent) {
         when (lobbyEvent) {
             is LobbyEvent.OnSelectGroup -> onSelectGroup(lobbyEvent)
-            LobbyEvent.OnButtonFilter -> {}
-            LobbyEvent.OnButtonSearch -> {}
+            LobbyEvent.OnButtonFilter -> onButtonFilter()
+            LobbyEvent.OnButtonSearch -> onButtonSearch()
             LobbyEvent.OnNavigateCalendar -> {}
             LobbyEvent.OnNavigateLobby -> {}
             LobbyEvent.OnCreateBirthday -> {}
@@ -131,5 +131,7 @@ class LobbyVM @Inject constructor(
             }
         }
     }
+
+    // Encapsulation functions
 
 }
