@@ -6,10 +6,11 @@
 
 ## 🛠️ Technologies used
 
-- Kotlin / Java / C#
-- Framework & IDE -> Android Studio, Jetpack Compose)
-- Architecture -> MVVM, Clean Architecture, Domain-Driven Design (DDD)
-- Libraries -> (por ejemplo: Retrofit, Hilt, Room, etc.)
+- Code language -> Kotlin
+- Framework & IDE -> Android Studio, Jetpack Compose
+- Architecture -> Domain-Driven Design (DDD)
+- Patterns -> SOLID, MVVM
+- Libraries -> Retrofit, Hilt, Room, etc
 
 ---
 
@@ -21,7 +22,8 @@ NOT YET
 
 ---
 
-## 🚀 Cómo ejecutar el proyecto
+
+## 🚀 How can I install the project
 
 NOT YET
 
@@ -31,8 +33,8 @@ NOT YET
 - Android Studio
 - Gradle
 
-### Clonar el repositorio
+### Clone the repository
 
 ```bash
-git clone https://github.com/TU_USUARIO/TU_REPO.git
-cd TU_REPO
+git clone https://github.com/Josito-Balmis/BirthdayRemember.git
+```
