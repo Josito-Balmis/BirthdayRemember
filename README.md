@@ -1,13 +1,7 @@
-# BirthdayRemember
-
-
-
 # 📱 Birthday Remember
 
-Breve descripción del proyecto: qué hace, para quién está pensado y por qué es útil.
-
-- Mobile application for remember special days such as birthdays, aniversaries, fatalities and whatever you want to!
-
+- English -> Mobile application for remember special days such as birthdays, aniversaries, demises and whatever you want to!
+- Español -> Aplicación móvil para recordar días especiales como cumpleaños, aniversarios, fallecimientos, o ¡los que quieras!
 ---
 
 ## 🛠️ Technologies used
@@ -19,15 +13,17 @@ Breve descripción del proyecto: qué hace, para quién está pensado y por qué
 
 ---
 
-## 📸 Capturas de pantalla
+## 📸 Screenshots
 
-> (Coloca aquí imágenes de la app en uso si es visual o enlaces a GIFs)
+> (Colocar aquí imágenes de la app)
 
 NOT YET
 
 ---
 
 ## 🚀 Cómo ejecutar el proyecto
+
+NOT YET
 
 ### Requisitos previos
 
