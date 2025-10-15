@@ -8,8 +8,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.pmdm.birthdayremember.presentation.components.chip.ChipCommon
+import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
-import com.pmdm.birthdayremember.presentation.features.lobby.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
 
 @Composable

@@ -30,7 +30,7 @@ class LobbyVM @Inject constructor(
 
     // Properties
     private val _listBirthdays = MutableStateFlow<List<BirthdayUiState>>(emptyList())
-    val birthdays = _listBirthdays.asStateFlow()
+    val listBirthdays = _listBirthdays.asStateFlow()
 
     private val _listGroups = MutableStateFlow<List<GroupUiState>>(emptyList())
     val listGroups = _listGroups.asStateFlow()
@@ -65,10 +65,12 @@ class LobbyVM @Inject constructor(
             is LobbyEvent.OnSelectGroup -> onSelectGroup(lobbyEvent)
             is LobbyEvent.OnButtonFilter -> onButtonFilter()
             is LobbyEvent.OnButtonSearch -> onButtonSearch()
-            is LobbyEvent.OnNavigateCalendar -> {}
+            is LobbyEvent.OnShowBottomSheet -> onShowBottomSheet(lobbyEvent)
             is LobbyEvent.OnNavigateLobby -> {}
-            is LobbyEvent.OnCreateBirthday -> {}
-            is LobbyEvent.OnShowCreateEvent -> onShowCreateEvent(lobbyEvent)
+            is LobbyEvent.OnNavigateCalendar -> {}
+            is LobbyEvent.OnNavigateAddCategory -> {}
+            is LobbyEvent.OnNavigateAddEvent -> {}
+            is LobbyEvent.OnNavigateImportContacts -> {}
         }
     }
 
@@ -96,7 +98,7 @@ class LobbyVM @Inject constructor(
 
     }
 
-    private fun onShowCreateEvent(event: LobbyEvent.OnShowCreateEvent) {
+    private fun onShowBottomSheet(event: LobbyEvent.OnShowBottomSheet) {
         _showBottomSheet.value = event.isShow
     }
 

@@ -21,41 +21,61 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
+import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
+
+// Constants
+private val START_PADD = 100.dp
+
+// All options
+private fun getOptions(): List<BottomBarAction<LobbyEvent>> = listOf(
+    BottomBarAction(
+        icon = Icons.TwoTone.Contacts,
+        description = "Importar contactos",
+        event = LobbyEvent.OnNavigateImportContacts()
+    ),
+    BottomBarAction(
+        icon = Icons.TwoTone.Event,
+        description = "Añadir un evento",
+        event = LobbyEvent.OnNavigateAddEvent()
+    ),
+    BottomBarAction(
+        icon = Icons.TwoTone.Category,
+        description = "Añadir categoría",
+        event = LobbyEvent.OnNavigateAddCategory()
+    )
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetAddEvent(
+fun BottomSheetOptions(
     sheetState: SheetState,
     onLobbyEvent: (LobbyEvent) -> Unit
 ) {
     ModalBottomSheet(
         onDismissRequest = {
-            onLobbyEvent(LobbyEvent.OnShowCreateEvent(false))
+            onLobbyEvent(LobbyEvent.OnShowBottomSheet(false))
         },
         sheetState = sheetState,
-        // modifier = Modifier.fillMaxSize()
     ) {
-        Box(
-            //modifier = Modifier.fillMaxWidth(),
-            //contentAlignment = Alignment.
-        ) {
+        Box {
             Column(
                 horizontalAlignment = Alignment.Start
             ) {
-                options.forEach { (icon, text) ->
+                getOptions().forEach { option ->
                     TextButton(
-                        onClick = {},
+                        onClick = { onLobbyEvent(option.event) },
                         Modifier.fillMaxWidth()
                     ) {
                         Row(
                             Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.Start
                         ) {
-                            Spacer(Modifier.padding(start = 100.dp))
-                            Icon(icon, null)
-                            Spacer(Modifier.padding(5.dp))
-                            Text(text)
+                            Spacer(Modifier.padding(start = START_PADD))
+                            Icon(option.icon, null)
+                            Spacer(Modifier.padding(MIN_DP))
+                            Text(option.description!!)
                         }
                     }
                 }
@@ -65,9 +85,3 @@ fun BottomSheetAddEvent(
 }
 
 
-private val options = listOf(
-    Icons.TwoTone.Contacts to "Importar contactos",
-    Icons.TwoTone.Event to "Añadir un evento",
-    Icons.TwoTone.Category to "Añadir categoría",
-
-    )
