@@ -9,12 +9,12 @@ import com.pmdm.birthdayremember.presentation.features.eventcreator.EventsCreato
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object EventCreator
+data object EventCreatorRoute
 
 fun NavGraphBuilder.displayEventCreatorDestination(
     vm: EventsCreatorVM
 ){
-    composable<EventCreator> {
+    composable<EventCreatorRoute> {
         val listEvents by vm.listGroups.collectAsState()
 
         EventCreatorScreen(

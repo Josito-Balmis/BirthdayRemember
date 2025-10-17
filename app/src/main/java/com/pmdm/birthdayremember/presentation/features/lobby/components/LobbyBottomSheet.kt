@@ -24,34 +24,37 @@ import androidx.compose.ui.unit.dp
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.LobbyNavigationEvent
 
 // Constants
 private val START_PADD = 100.dp
 
 // All options
-private fun getOptions(): List<BottomBarAction<LobbyEvent>> = listOf(
+private fun getOptions(): List<BottomBarAction<LobbyNavigationEvent>> = listOf(
     BottomBarAction(
         icon = Icons.TwoTone.Contacts,
         description = "Importar contactos",
-        event = LobbyEvent.OnNavigateImportContacts()
+        event = LobbyNavigationEvent.OnNavigateImportContacts
     ),
     BottomBarAction(
         icon = Icons.TwoTone.Event,
         description = "Añadir un evento",
-        event = LobbyEvent.OnNavigateAddEvent()
+        event = LobbyNavigationEvent.OnNavigateAddEvent
     ),
     BottomBarAction(
         icon = Icons.TwoTone.Category,
         description = "Añadir categoría",
-        event = LobbyEvent.OnNavigateAddCategory()
+        event = LobbyNavigationEvent.OnNavigateAddCategory
     )
 )
 
+// Main function
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetOptions(
+fun LobbyBottomSheetOptions(
     sheetState: SheetState,
-    onLobbyEvent: (LobbyEvent) -> Unit
+    onLobbyEvent: (LobbyEvent) -> Unit,
+    onNavigate: (LobbyNavigationEvent) -> Unit,
 ) {
     ModalBottomSheet(
         onDismissRequest = {
@@ -65,7 +68,7 @@ fun BottomSheetOptions(
             ) {
                 getOptions().forEach { option ->
                     TextButton(
-                        onClick = { onLobbyEvent(option.event) },
+                        onClick = { onNavigate(option.event) },
                         Modifier.fillMaxWidth()
                     ) {
                         Row(

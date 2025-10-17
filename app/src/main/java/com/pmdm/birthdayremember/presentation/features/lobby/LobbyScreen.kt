@@ -15,13 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
-import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarCommon
+import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarCommon2
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarCommon
-import com.pmdm.birthdayremember.presentation.features.lobby.components.BottomSheetOptions
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ChipControl
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ListBirthdays
+import com.pmdm.birthdayremember.presentation.features.lobby.components.LobbyBottomSheetOptions
 import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
 import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
@@ -33,10 +33,10 @@ fun LobbyScreen(
     listGroups: List<GroupUiState>,
     listBirthdays: List<BirthdayUiState>,
     listTopBarActions: List<TopBarAction<LobbyEvent>>,
-    listBottomBarActions: List<BottomBarAction<LobbyEvent>>,
+    listBottomBarActions: List<BottomBarAction<LobbyNavigationEvent>>,
     showBottomSheet: Boolean,
     onLobbyEvent: (LobbyEvent) -> Unit,
-    onNavigateEventsCreator: (LobbyEvent.OnNavigateAddEvent) -> Unit
+    onNavigate: (LobbyNavigationEvent) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -50,14 +50,15 @@ fun LobbyScreen(
             )
         },
         bottomBar = {
-            BottomBarCommon(
-                onClick = onLobbyEvent,
+            BottomBarCommon2( // Navigation uses T generic and Floating Button uses U generic
+                onClickAction = onNavigate,
                 actions = listBottomBarActions,
                 floatingAction = FloatingActionButton<LobbyEvent>(
                     icon = Icons.TwoTone.CardGiftcard,
                     description = "Button for add a new birthday",
                     event = LobbyEvent.OnShowBottomSheet(true)
-                )
+                ),
+                onClickFloating = onLobbyEvent
             )
         }
     ) {
@@ -71,9 +72,10 @@ fun LobbyScreen(
                 ListBirthdays(listBirthdays)
 
                 if (showBottomSheet)
-                    BottomSheetOptions(
+                    LobbyBottomSheetOptions(
                         sheetState = sheetState,
-                        onLobbyEvent = onLobbyEvent
+                        onLobbyEvent = onLobbyEvent,
+                        onNavigate = onNavigate
                     )
             }
         }
@@ -98,7 +100,7 @@ fun PreviewLobbyScreen() {
                 onLobbyEvent = {},
                 listBottomBarActions = listOf(),
                 showBottomSheet = false,
-                onNavigateEventsCreator = {}
+                onNavigate = {}
             )
         }
     }

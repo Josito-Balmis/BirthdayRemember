@@ -8,16 +8,17 @@ import androidx.compose.runtime.Composable
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 
 @Composable
-fun <T> BottomBarCommon(
-    onClick: (T) -> Unit,
+fun <T, U> BottomBarCommon2(
+    onClickAction: (T) -> Unit,
+    onClickFloating: (U) -> Unit,
     actions: List<BottomBarAction<T>>,
-    floatingAction: FloatingActionButton<T>
+    floatingAction: FloatingActionButton<U>
 ) {
     BottomAppBar(
         actions = {
             actions.forEach {
                 IconButton(
-                    onClick = { onClick(it.event) }
+                    onClick = { onClickAction(it.event) }
                 ) {
                     Icon(imageVector = it.icon, it.description)
                 }
@@ -25,7 +26,7 @@ fun <T> BottomBarCommon(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onClick(floatingAction.event) }
+                onClick = { onClickFloating(floatingAction.event) }
             ) {
                 Icon(imageVector = floatingAction.icon, floatingAction.description)
             }

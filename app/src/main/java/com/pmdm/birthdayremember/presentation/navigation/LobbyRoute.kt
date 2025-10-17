@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.LobbyNavigationEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyScreen
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyVM
 import kotlinx.serialization.Serializable
@@ -14,7 +15,7 @@ data object LobbyRoute
 
 fun NavGraphBuilder.displayLobbyDestination(
     vm: LobbyVM,
-    onNavigateEventCreator: (LobbyEvent.OnNavigateAddEvent) -> Unit
+    onNavigate: (LobbyNavigationEvent) -> Unit
 ) {
     composable<LobbyRoute> {
         val listGroups by vm.listGroups.collectAsState()
@@ -30,7 +31,7 @@ fun NavGraphBuilder.displayLobbyDestination(
             listBottomBarActions = listBottomBarActions,
             onLobbyEvent = vm::onLobbyEvent,
             showBottomSheet = showBottomSheet,
-            onNavigateEventsCreator = onNavigateEventCreator,
+            onNavigate = onNavigate,
         )
     }
 }

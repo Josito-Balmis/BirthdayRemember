@@ -38,7 +38,7 @@ class LobbyVM @Inject constructor(
     private val _listTopBarActions = MutableStateFlow<List<TopBarAction<LobbyEvent>>>(emptyList())
     val listTopBarActions = _listTopBarActions.asStateFlow()
 
-    private val _listBottomBarActions = MutableStateFlow<List<BottomBarAction<LobbyEvent>>>(
+    private val _listBottomBarActions = MutableStateFlow<List<BottomBarAction<LobbyNavigationEvent>>>(
         emptyList()
     )
     val listBottomBarAction = _listBottomBarActions.asStateFlow()
@@ -66,11 +66,6 @@ class LobbyVM @Inject constructor(
             is LobbyEvent.OnButtonFilter -> onButtonFilter()
             is LobbyEvent.OnButtonSearch -> onButtonSearch()
             is LobbyEvent.OnShowBottomSheet -> onShowBottomSheet(lobbyEvent)
-            is LobbyEvent.OnNavigateLobby -> {}
-            is LobbyEvent.OnNavigateCalendar -> {}
-            is LobbyEvent.OnNavigateAddCategory -> {}
-            is LobbyEvent.OnNavigateAddEvent -> {}
-            is LobbyEvent.OnNavigateImportContacts -> {}
         }
     }
 
