@@ -10,21 +10,17 @@ import com.pmdm.birthdayremember.presentation.features.lobby.LobbyVM
 
 @Composable
 fun AppNavHost(navHostController: NavHostController) {
-    val lobbyVm = hiltViewModel<LobbyVM>()
-    val eventCreatorVM = hiltViewModel<EventsCreatorVM>()
-
     NavHost(
         navController = navHostController,
         startDestination = LobbyRoute
     ) {
         displayLobbyDestination(
-            vm = lobbyVm,
             onNavigate = { event ->
                 when (event) {
-                    LobbyNavigationEvent.OnNavigateAddCategory -> TODO()
-                    LobbyNavigationEvent.OnNavigateCalendar -> TODO()
-                    LobbyNavigationEvent.OnNavigateImportContacts -> TODO()
-                    LobbyNavigationEvent.OnNavigateLobby -> TODO()
+                    LobbyNavigationEvent.OnNavigateAddCategory -> {}
+                    LobbyNavigationEvent.OnNavigateCalendar -> {}
+                    LobbyNavigationEvent.OnNavigateImportContacts -> {}
+                    LobbyNavigationEvent.OnNavigateLobby -> {}
                     LobbyNavigationEvent.OnNavigateAddEvent -> navHostController.navigate(
                         EventCreatorRoute
                     )
@@ -32,8 +28,6 @@ fun AppNavHost(navHostController: NavHostController) {
             }
         )
 
-        displayEventCreatorDestination(
-            vm = eventCreatorVM
-        )
+        displayEventCreatorDestination()
     }
 }

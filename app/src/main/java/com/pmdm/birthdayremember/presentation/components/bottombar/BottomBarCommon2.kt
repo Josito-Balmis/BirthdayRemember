@@ -7,6 +7,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 
+// T is for Actions
+// U is for Floating Button
+
 @Composable
 fun <T, U> BottomBarCommon2(
     onClickAction: (T) -> Unit,

@@ -1,50 +1,66 @@
 package com.pmdm.birthdayremember.presentation.features.eventcreator
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.pmdm.birthdayremember.application.usecase.group.GetGroupsUseCase
-import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toListUi
+import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
 import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
 class EventsCreatorVM @Inject constructor(
-    private val getGroupsUseCase: GetGroupsUseCase
+    //private val getGroupsUseCase: GetGroupsUseCase
 ) : ViewModel() {
 
     // Properties
     private val _listGroups = MutableStateFlow<List<GroupUiState>>(emptyList())
     val listGroups = _listGroups.asStateFlow()
 
+    private val _birthdayState = MutableStateFlow(BirthdayUiState())
+    val birthdayUiState = _birthdayState.asStateFlow()
+
     // Constructor
-    init {
-        viewModelScope.launch {
-            loadListGroups()
-        }
-    }
+//    init {
+//        viewModelScope.launch {
+//            //loadListGroups()
+//        }
+//    }
 
     // Events
-    fun onEventsCreatorEvent(eventsCreatorEvent: EventsCreatorEvent) {
-        when (eventsCreatorEvent) {
+    fun onEventsCreatorEvent(onEventParam: EventsCreatorEvent) {
+        when (onEventParam) {
             is EventsCreatorEvent.OnShowBottomSheet -> {}
+            is EventsCreatorEvent.OnNameChanged -> onNameChanged(onEventParam)
+            is EventsCreatorEvent.OnDeleteEvent -> {}
+            is EventsCreatorEvent.OnSaveEvent -> {}
+            is EventsCreatorEvent.OnDateChanged -> onDateChanged(onEventParam)
         }
     }
 
     // Load Functions
-    private suspend fun loadListGroups() {
-        val result = getGroupsUseCase()
+//    private suspend fun loadListGroups() {
+//        val result = getGroupsUseCase()
+//
+//        result.onFailure {
+//            throw Exception("The group list couldn't be posible to load it")
+//        }.onSuccess {
+//            _listGroups.value = it.toListUi()
+//        }
+//    }
 
-        result.onFailure {
-            throw Exception("The group list couldn't be posible to load it")
-        }.onSuccess {
-            _listGroups.value = it.toListUi()
+    // Encapsuled Functions
+    private fun onNameChanged(onEventParam: EventsCreatorEvent.OnNameChanged) {
+        _birthdayState.update { currentState ->
+            currentState.copy(name = onEventParam.name)
         }
     }
 
-    // Encapsuled Functions
+    private fun onDateChanged(onEventParam: EventsCreatorEvent.OnDateChanged) {
+        _birthdayState.update { currentState ->
+            currentState.copy(date = onEventParam.date)
+        }
 
+    }
 }

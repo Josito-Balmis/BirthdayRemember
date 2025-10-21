@@ -4,20 +4,23 @@ import com.pmdm.birthdayremember.domain.valueobject.Zodiac
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+// Constants
+private val formatWithYear = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+private val formatWithoutYear = DateTimeFormatter.ofPattern("dd/MM")
+
+//Main class
 data class BirthdayUiState(
     val id: Int = 0,
     val idGroup: Int = 0,
     val zodiac: Zodiac = Zodiac(Zodiac.ZodiacName.Ninguno),
     val name: String = "",
-    val date: LocalDate = LocalDate.now(),
-    val hasYear: Boolean = false,
+    val date: LocalDate? = null,
+    val hasYear: Boolean = true,
     val notes: String? = null,
     val image: String? = null
 ) {
     fun formattedDate(): String {
-        val formatWithYear = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val formatWithoutYear = DateTimeFormatter.ofPattern("dd/MM")
-
+        if (date == null) return ""
         if (this.hasYear)
             return this.date.format(formatWithYear)
 

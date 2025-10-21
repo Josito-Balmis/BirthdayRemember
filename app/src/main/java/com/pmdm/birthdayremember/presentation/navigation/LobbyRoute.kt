@@ -1,10 +1,10 @@
 package com.pmdm.birthdayremember.presentation.navigation
 
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyNavigationEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyScreen
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyVM
@@ -14,15 +14,16 @@ import kotlinx.serialization.Serializable
 data object LobbyRoute
 
 fun NavGraphBuilder.displayLobbyDestination(
-    vm: LobbyVM,
     onNavigate: (LobbyNavigationEvent) -> Unit
 ) {
     composable<LobbyRoute> {
-        val listGroups by vm.listGroups.collectAsState()
-        val listBirthdays by vm.listBirthdays.collectAsState()
-        val listTopBarActions by vm.listTopBarActions.collectAsState()
-        val listBottomBarActions by vm.listBottomBarAction.collectAsState()
-        val showBottomSheet by vm.showBottomSheet.collectAsState()
+        val vm = hiltViewModel<LobbyVM>()
+
+        val listGroups by vm.listGroups.collectAsStateWithLifecycle()
+        val listBirthdays by vm.listBirthdays.collectAsStateWithLifecycle()
+        val listTopBarActions by vm.listTopBarActions.collectAsStateWithLifecycle()
+        val listBottomBarActions by vm.listBottomBarAction.collectAsStateWithLifecycle()
+        val showBottomSheet by vm.showBottomSheet.collectAsStateWithLifecycle()
 
         LobbyScreen(
             listGroups = listGroups,
