@@ -1,8 +1,8 @@
 package com.pmdm.birthdayremember.presentation.features.eventcreator
 
 import androidx.lifecycle.ViewModel
-import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
-import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
+import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

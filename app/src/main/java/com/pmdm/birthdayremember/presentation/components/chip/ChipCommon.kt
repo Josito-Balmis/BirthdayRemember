@@ -4,8 +4,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material.icons.twotone.Check
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,16 +18,16 @@ fun <Event> ChipCommon(
     action: ChipAction<Event>,
     onEvent: (Event) -> Unit
 ) {
-    InputChip(
+    FilterChip(
         modifier = modifier,
         selected = action.isSelected,
         onClick = { onEvent(action.event) },
         label = { Text(action.name) },
-        avatar = {
+        leadingIcon = {
             Icon(
                 imageVector = action.icon ?: Icons.Default.BrokenImage,
                 contentDescription = null,
-                modifier = Modifier.size(InputChipDefaults.AvatarSize)
+                modifier = Modifier.size(FilterChipDefaults.IconSize)
             )
         },
         trailingIcon = {
@@ -34,7 +35,7 @@ fun <Event> ChipCommon(
                 Icon(
                     imageVector = Icons.TwoTone.Check,
                     contentDescription = null,
-                    modifier = Modifier.size(InputChipDefaults.AvatarSize)
+                    modifier = Modifier.size(FilterChipDefaults.IconSize)
                 )
         }
     )

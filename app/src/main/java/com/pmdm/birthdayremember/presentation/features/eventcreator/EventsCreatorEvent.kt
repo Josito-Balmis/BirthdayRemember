@@ -1,6 +1,6 @@
 package com.pmdm.birthdayremember.presentation.features.eventcreator
 
-import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
 import java.time.LocalDate
 
 sealed interface EventsCreatorEvent {

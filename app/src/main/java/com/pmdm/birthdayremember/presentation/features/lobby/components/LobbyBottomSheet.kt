@@ -7,11 +7,10 @@ import androidx.compose.material.icons.twotone.Event
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
 import com.pmdm.birthdayremember.presentation.components.bottomsheet.DefaultBottomSheetOptions
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyNavigationEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
 
 // Constants
 

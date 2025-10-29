@@ -10,10 +10,10 @@ import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarActi
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyBottomBarActionsConfig
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyTopBarActionsConfig
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toListUi
 import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toUi
-import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
-import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,25 +29,17 @@ class LobbyVM @Inject constructor(
 ) : ViewModel() {
 
     // Properties
-    private val _listBirthdays = MutableStateFlow<List<BirthdayUiState>>(emptyList())
-    val listBirthdays = _listBirthdays.asStateFlow()
-
-    private val _listGroups = MutableStateFlow<List<GroupUiState>>(emptyList())
-    val listGroups = _listGroups.asStateFlow()
+    private val _uiState = MutableStateFlow(LobbyUiState())
+    val uiState = _uiState.asStateFlow()
 
     private val _listTopBarActions = MutableStateFlow<List<TopBarAction<LobbyEvent>>>(emptyList())
     val listTopBarActions = _listTopBarActions.asStateFlow()
 
-    private val _listBottomBarActions = MutableStateFlow<List<BottomBarAction<LobbyNavigationEvent>>>(
-        emptyList()
-    )
+    private val _listBottomBarActions =
+        MutableStateFlow<List<BottomBarAction<LobbyNavigationEvent>>>(
+            emptyList()
+        )
     val listBottomBarAction = _listBottomBarActions.asStateFlow()
-
-    private val _groupSelectedUiState = MutableStateFlow(GroupUiState())
-    val groupSelectedUiState = _groupSelectedUiState.asStateFlow()
-
-    private val _showBottomSheet = MutableStateFlow(false)
-    val showBottomSheet = _showBottomSheet.asStateFlow()
 
     // Constructors
     init {
@@ -70,19 +62,33 @@ class LobbyVM @Inject constructor(
     }
 
     private fun onSelectGroup(event: LobbyEvent.OnSelectGroup) {
-        // Update an element of our listGroup, in specific the isSelected
-        _listGroups.update {
-            it.map { groupUi ->
-                if (groupUi.id == event.groupId && groupUi.isSelected.not())
-                    groupUi.copy(isSelected = true)
-                else groupUi.copy(isSelected = false)
+        _uiState.update {
+            if (_uiState.value.groupSelected?.id == event.groupId) {
+                val updatedList = it.listGroups.map { group -> group.copy(isSelected = false) }
+
+                it.copy(
+                    listGroups = updatedList,
+                    groupSelected = null
+                )
+            } else {
+                val updatedList = it.listGroups.map { group ->
+                    group.copy(isSelected = group.id == event.groupId)
+                }
+
+                val groupSelected = updatedList.find { it.isSelected }
+
+                it.copy(
+                    listGroups = updatedList,
+                    groupSelected = groupSelected
+                )
             }
         }
+    }
 
-        // Found the group selected and asign his value to the atribute
-        _groupSelectedUiState.value = _listGroups.value.find {
-            it.isSelected
-        } ?: GroupUiState()
+    private fun onShowBottomSheet(event: LobbyEvent.OnShowBottomSheet) {
+        _uiState.update {
+            it.copy(showBottomSheet = event.isShow)
+        }
     }
 
     private fun onButtonFilter() {
@@ -93,10 +99,6 @@ class LobbyVM @Inject constructor(
 
     }
 
-    private fun onShowBottomSheet(event: LobbyEvent.OnShowBottomSheet) {
-        _showBottomSheet.value = event.isShow
-    }
-
     // Load Functions
     private suspend fun loadBirthdays() {
         val result = getListBirthdaysUseCase()
@@ -104,39 +106,49 @@ class LobbyVM @Inject constructor(
         result
             .onFailure {
                 Log.e(this.javaClass.name, "Failed to load the list of birthdays.")
-            }.onSuccess { birthdays ->
-                _listBirthdays.value = birthdays.toListUi()
+            }.onSuccess { listBirthdays ->
+                _uiState.update {
+                    it.copy(listBirthdays = listBirthdays.toListUi())
+                }
             }
     }
 
     private suspend fun loadListGroups() {
         val result = getGroupsUseCase()
 
-        result.onSuccess {
-            _listGroups.value = it.toListUi()
+        result.onSuccess { listGroups ->
+            _uiState.update {
+                it.copy(listGroups = listGroups.toListUi())
+            }
         }
     }
 
     private fun loadTopBarActions() {
-        _listTopBarActions.value = lobbyTopBarActionsConfig()
+        _listTopBarActions.update {
+            lobbyTopBarActionsConfig()
+        }
     }
 
     private fun loadBottomBarActions() {
-        _listBottomBarActions.value = lobbyBottomBarActionsConfig()
+        _listBottomBarActions.update {
+            lobbyBottomBarActionsConfig()
+        }
     }
 
-    private fun loadGroupUiState(idGroup: Int) {
+    private fun loadGroupSelected(idGroup: Int) {
         viewModelScope.launch {
             val result = getGroupUseCase(idGroup)
 
             result.onFailure {
                 Log.e(this.javaClass.name, it.message!!)
             }.onSuccess { group ->
-                _groupSelectedUiState.value = group.toUi()
+                _uiState.update {
+                    it.copy(groupSelected = group.toUi())
+                }
             }
         }
     }
 
-    // Encapsulation functions
+// Encapsulation functions
 
 }

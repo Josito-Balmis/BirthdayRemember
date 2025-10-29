@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.pmdm.birthdayremember.domain.valueobject.Zodiac
-import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 import java.time.LocalDate
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP

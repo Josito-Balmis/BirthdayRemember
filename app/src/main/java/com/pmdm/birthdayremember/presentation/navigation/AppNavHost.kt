@@ -1,12 +1,9 @@
 package com.pmdm.birthdayremember.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.pmdm.birthdayremember.presentation.features.eventcreator.EventsCreatorVM
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyNavigationEvent
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyVM
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
 
 @Composable
 fun AppNavHost(navHostController: NavHostController) {

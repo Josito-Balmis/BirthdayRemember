@@ -1,10 +1,8 @@
-package com.pmdm.birthdayremember.presentation.features.lobby.model
+package com.pmdm.birthdayremember.presentation.model
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
 
 data class GroupUiState(
     val id: Int = 0,

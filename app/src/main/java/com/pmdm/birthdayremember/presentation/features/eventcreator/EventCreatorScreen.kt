@@ -34,8 +34,8 @@ import com.pmdm.birthdayremember.presentation.components.globalvalues.MID_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.eventcreator.components.EventCard
 import com.pmdm.birthdayremember.presentation.features.eventcreator.components.EventCreatorBottomSheet
-import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
-import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
+import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 
 // Constants

@@ -4,8 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.CalendarMonth
 import androidx.compose.material.icons.twotone.Home
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyNavigationEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
 
 fun lobbyBottomBarActionsConfig(): List<BottomBarAction<LobbyNavigationEvent>> =
     listOf(

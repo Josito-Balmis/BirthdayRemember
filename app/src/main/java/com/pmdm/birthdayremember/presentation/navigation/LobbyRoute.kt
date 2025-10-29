@@ -5,9 +5,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyNavigationEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyScreen
 import com.pmdm.birthdayremember.presentation.features.lobby.LobbyVM
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -19,19 +19,15 @@ fun NavGraphBuilder.displayLobbyDestination(
     composable<LobbyRoute> {
         val vm = hiltViewModel<LobbyVM>()
 
-        val listGroups by vm.listGroups.collectAsStateWithLifecycle()
-        val listBirthdays by vm.listBirthdays.collectAsStateWithLifecycle()
+        val lobbyUiState by vm.uiState.collectAsStateWithLifecycle()
         val listTopBarActions by vm.listTopBarActions.collectAsStateWithLifecycle()
         val listBottomBarActions by vm.listBottomBarAction.collectAsStateWithLifecycle()
-        val showBottomSheet by vm.showBottomSheet.collectAsStateWithLifecycle()
 
         LobbyScreen(
-            listGroups = listGroups,
-            listBirthdays = listBirthdays,
+            lobbyUiState = lobbyUiState,
             listTopBarActions = listTopBarActions,
             listBottomBarActions = listBottomBarActions,
             onLobbyEvent = vm::onLobbyEvent,
-            showBottomSheet = showBottomSheet,
             onNavigate = onNavigate,
         )
     }

@@ -24,8 +24,8 @@ import com.github.pmdmiesbalmis.components.validacion.Validacion
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MID_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.eventcreator.EventsCreatorEvent
-import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
-import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
+import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import java.time.LocalDate
 
 // Constants

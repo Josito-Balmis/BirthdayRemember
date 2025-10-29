@@ -22,19 +22,17 @@ import com.pmdm.birthdayremember.presentation.components.topbar.TopBarCommon
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ChipControl
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ListBirthdays
 import com.pmdm.birthdayremember.presentation.features.lobby.components.LobbyBottomSheetOptions
-import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
-import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 
 //Main Composable
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LobbyScreen(
-    listGroups: List<GroupUiState>,
-    listBirthdays: List<BirthdayUiState>,
+    lobbyUiState: LobbyUiState,
     listTopBarActions: List<TopBarAction<LobbyEvent>>,
     listBottomBarActions: List<BottomBarAction<LobbyNavigationEvent>>,
-    showBottomSheet: Boolean,
     onLobbyEvent: (LobbyEvent) -> Unit,
     onNavigate: (LobbyNavigationEvent) -> Unit
 ) {
@@ -65,13 +63,13 @@ fun LobbyScreen(
         Surface(Modifier.padding(it)) {
             Column(Modifier.fillMaxWidth()) {
                 ChipControl(
-                    listGroups = listGroups,
+                    listGroups = lobbyUiState.listGroups,
                     onLobbyEvent = onLobbyEvent
                 )
 
-                ListBirthdays(listBirthdays)
+                ListBirthdays(lobbyUiState.listBirthdays)
 
-                if (showBottomSheet)
+                if (lobbyUiState.showBottomSheet)
                     LobbyBottomSheetOptions(
                         sheetState = sheetState,
                         onLobbyEvent = onLobbyEvent,
@@ -88,19 +86,11 @@ fun PreviewLobbyScreen() {
     BirthDayTheme {
         Surface(Modifier.fillMaxSize()) {
             LobbyScreen(
-                listGroups = listOf(
-                    GroupUiState(name = "Cumpleaños"),
-                    GroupUiState(name = "Aniversario"),
-                    GroupUiState(name = "Fallecimiento"),
-                ),
-                listBirthdays = listOf(
-                    BirthdayUiState()
-                ),
                 listTopBarActions = listOf(),
                 onLobbyEvent = {},
                 listBottomBarActions = listOf(),
-                showBottomSheet = false,
-                onNavigate = {}
+                onNavigate = {},
+                lobbyUiState = LobbyUiState()
             )
         }
     }

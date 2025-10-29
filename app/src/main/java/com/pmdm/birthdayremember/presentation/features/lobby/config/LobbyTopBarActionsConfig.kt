@@ -4,7 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.FilterAlt
 import androidx.compose.material.icons.twotone.Search
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
-import com.pmdm.birthdayremember.presentation.features.lobby.LobbyEvent
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
 
 fun lobbyTopBarActionsConfig(): List<TopBarAction<LobbyEvent>> =
     listOf(

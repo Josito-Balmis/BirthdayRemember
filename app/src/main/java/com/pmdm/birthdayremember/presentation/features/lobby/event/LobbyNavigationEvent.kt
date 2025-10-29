@@ -1,4 +1,4 @@
-package com.pmdm.birthdayremember.presentation.features.lobby
+package com.pmdm.birthdayremember.presentation.features.lobby.event
 
 sealed interface LobbyNavigationEvent {
     data object OnNavigateLobby : LobbyNavigationEvent
