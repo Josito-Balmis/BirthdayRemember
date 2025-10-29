@@ -21,6 +21,9 @@ class EventsCreatorVM @Inject constructor(
     private val _birthdayState = MutableStateFlow(BirthdayUiState())
     val birthdayUiState = _birthdayState.asStateFlow()
 
+    private val _showBottomSheet = MutableStateFlow(false)
+    val showBottomSheet = _showBottomSheet.asStateFlow()
+
     // Constructor
 //    init {
 //        viewModelScope.launch {
@@ -31,13 +34,15 @@ class EventsCreatorVM @Inject constructor(
     // Events
     fun onEventsCreatorEvent(onEventParam: EventsCreatorEvent) {
         when (onEventParam) {
-            is EventsCreatorEvent.OnShowBottomSheet -> {}
+            is EventsCreatorEvent.OnShowBottomSheet -> onShowBottomSheet(onEventParam)
             is EventsCreatorEvent.OnNameChanged -> onNameChanged(onEventParam)
             is EventsCreatorEvent.OnDeleteEvent -> {}
             is EventsCreatorEvent.OnSaveEvent -> {}
             is EventsCreatorEvent.OnDateChanged -> onDateChanged(onEventParam)
+            is EventsCreatorEvent.OnAddGroup -> {}
         }
     }
+
 
     // Load Functions
 //    private suspend fun loadListGroups() {
@@ -61,6 +66,9 @@ class EventsCreatorVM @Inject constructor(
         _birthdayState.update { currentState ->
             currentState.copy(date = onEventParam.date)
         }
+    }
 
+    private fun onShowBottomSheet(onEventParam: EventsCreatorEvent.OnShowBottomSheet) {
+        _showBottomSheet.update { onEventParam.isShow }
     }
 }

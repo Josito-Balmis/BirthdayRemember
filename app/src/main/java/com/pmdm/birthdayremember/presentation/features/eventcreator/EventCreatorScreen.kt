@@ -17,11 +17,13 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Person3
 import androidx.compose.material.icons.twotone.AddCircle
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +33,7 @@ import com.pmdm.birthdayremember.presentation.components.globalvalues.MAX_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MID_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.eventcreator.components.EventCard
+import com.pmdm.birthdayremember.presentation.features.eventcreator.components.EventCreatorBottomSheet
 import com.pmdm.birthdayremember.presentation.features.lobby.model.BirthdayUiState
 import com.pmdm.birthdayremember.presentation.features.lobby.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
@@ -40,12 +43,17 @@ private val TOP_PADD = 32.dp
 private val IMAGE_SIZE = 150.dp
 
 // Composable Functions
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventCreatorScreen(
     listGroups: List<GroupUiState>,
     birthdayUiState: BirthdayUiState,
+    showBottomSheet: Boolean,
     onEvent: (EventsCreatorEvent) -> Unit
 ) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+
     Column(Modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
@@ -119,6 +127,14 @@ fun EventCreatorScreen(
                 Text("Añadir evento")
             }
 
+            if (showBottomSheet) {
+                EventCreatorBottomSheet(
+                    options = TODO(),
+                    onEvent = onEvent,
+                    sheetState = sheetState
+                )
+            }
+
             Button(
                 onClick = { onEvent(EventsCreatorEvent.OnSaveEvent(birthdayUiState = birthdayUiState)) },
                 modifier = Modifier
@@ -141,7 +157,8 @@ fun PreviewEventCreator() {
             EventCreatorScreen(
                 listGroups = listOf(),
                 birthdayUiState = BirthdayUiState(),
-                onEvent = {}
+                onEvent = {},
+                showBottomSheet = false
             )
         }
     }

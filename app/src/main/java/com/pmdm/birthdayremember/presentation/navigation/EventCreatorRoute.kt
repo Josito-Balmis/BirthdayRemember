@@ -19,11 +19,13 @@ fun NavGraphBuilder.displayEventCreatorDestination() {
 
         val listGroups by vm.listGroups.collectAsStateWithLifecycle()
         val birthdayUiState by vm.birthdayUiState.collectAsStateWithLifecycle()
+        val showBottomSheet by vm.showBottomSheet.collectAsStateWithLifecycle()
 
         EventCreatorScreen(
             listGroups = listGroups,
             birthdayUiState = birthdayUiState,
-            onEvent = vm::onEventsCreatorEvent
+            onEvent = vm::onEventsCreatorEvent,
+            showBottomSheet = showBottomSheet
         )
     }
 }

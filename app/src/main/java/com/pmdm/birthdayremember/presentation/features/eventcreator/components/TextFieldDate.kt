@@ -7,19 +7,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldWithErrorState
 import com.github.pmdmiesbalmis.components.validacion.Validacion
-import java.time.LocalDate
 
 @Composable
 fun TextFieldDate(
     modifier: Modifier,
-    date: Int,
+    date: Int?,
     label: String,
     validationState: Validacion,
     onValueChanged: (Int) -> Unit
 ) {
     OutlinedTextFieldWithErrorState(
         modifier = modifier,
-        textoState = date.toString(),
+        textoState = date?.toString() ?: "",
         textoPista = "Clue text; modify this text in the function",
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         validacionState = validationState,

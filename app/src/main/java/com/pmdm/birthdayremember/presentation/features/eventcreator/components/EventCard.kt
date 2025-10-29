@@ -75,7 +75,7 @@ fun EventCard(
                     onValueChanged = { day ->
                         onEvent(
                             EventsCreatorEvent.OnDateChanged(
-                                birthdayUiState.date.withDayOfMonth(day)
+                                birthdayUiState.date!!.withDayOfMonth(day)
                             )
                         )
                     }
@@ -85,13 +85,13 @@ fun EventCard(
 
                 TextFieldDate(
                     modifier = Modifier.widthIn(max = WIDTH_DAY),
-                    date = birthdayUiState.date.monthValue,
+                    date = birthdayUiState.date?.monthValue,
                     label = "Mes",
                     validationState = MockValidation(false),
                     onValueChanged = { month ->
                         onEvent(
                             EventsCreatorEvent.OnDateChanged(
-                                birthdayUiState.date.withMonth(month)
+                                birthdayUiState.date!!.withMonth(month)
                             )
                         )
                     }
@@ -102,7 +102,7 @@ fun EventCard(
 
                     TextFieldDate(
                         modifier = Modifier.widthIn(max = WIDTH_YEAR),
-                        date = birthdayUiState.date.year,
+                        date = birthdayUiState.date?.year,
                         label = "Año",
                         validationState = MockValidation(false),
                         onValueChanged = { year ->
