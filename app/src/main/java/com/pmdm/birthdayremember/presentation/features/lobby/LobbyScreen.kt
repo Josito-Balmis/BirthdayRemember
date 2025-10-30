@@ -14,8 +14,9 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarCommon2
-import com.pmdm.birthdayremember.presentation.components.chip.ItemAction
+import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarCommon
@@ -32,7 +33,7 @@ import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 fun LobbyScreen(
     lobbyUiState: LobbyUiState,
     listTopBarActions: List<TopBarAction<LobbyEvent>>,
-    listBottomBarActions: List<ItemAction<LobbyNavigationEvent>>,
+    listBottomBarActions: List<BottomBarAction<LobbyNavigationEvent>>,
     onLobbyEvent: (LobbyEvent) -> Unit,
     onNavigate: (LobbyNavigationEvent) -> Unit
 ) {

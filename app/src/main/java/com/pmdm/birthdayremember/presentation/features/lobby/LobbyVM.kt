@@ -6,7 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.pmdm.birthdayremember.application.usecase.birthday.GetListBirthdaysUseCase
 import com.pmdm.birthdayremember.application.usecase.group.GetGroupUseCase
 import com.pmdm.birthdayremember.application.usecase.group.GetGroupsUseCase
-import com.pmdm.birthdayremember.presentation.components.chip.ItemAction
+import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
+import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyBottomBarActionsConfig
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyTopBarActionsConfig
@@ -36,7 +37,7 @@ class LobbyVM @Inject constructor(
     val listTopBarActions = _listTopBarActions.asStateFlow()
 
     private val _listBottomBarActions =
-        MutableStateFlow<List<ItemAction<LobbyNavigationEvent>>>(
+        MutableStateFlow<List<BottomBarAction<LobbyNavigationEvent>>>(
             emptyList()
         )
     val listBottomBarAction = _listBottomBarActions.asStateFlow()

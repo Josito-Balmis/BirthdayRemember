@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun <Event> ChipCommon(
     modifier: Modifier = Modifier,
-    action: ItemAction<Event>,
+    action: ChipAction<Event>,
     onEvent: (Event) -> Unit
 ) {
     FilterChip(

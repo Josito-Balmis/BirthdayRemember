@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.pmdm.birthdayremember.presentation.components.chip.ItemAction
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 
 // Constants
@@ -30,7 +29,7 @@ private val START_PADD = 100.dp
 @Composable
 fun <Event> DefaultBottomSheetOptions(
     sheetState: SheetState,
-    options: List<ItemAction<Event>>,
+    options: List<BottomSheetAction<Event>>,
     onDismissRequest: () -> Unit,
     onClick: (Event) -> Unit
 ) {

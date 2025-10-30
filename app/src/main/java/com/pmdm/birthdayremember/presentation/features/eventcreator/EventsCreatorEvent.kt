@@ -12,4 +12,5 @@ sealed interface EventsCreatorEvent {
     data class OnNameChanged(val name: String) : EventsCreatorEvent
     data class OnDateChanged(val date: LocalDate) : EventsCreatorEvent
     data class OnAddGroup(val id: Int) : EventsCreatorEvent
+    data class OnSelectGroup(val id: Int) : EventsCreatorEvent
 }

@@ -7,5 +7,6 @@ data class EventCreatorUiState(
     val listGroups: List<GroupUiState> = emptyList(),
     val name: String = "",
     val birthdaySelected: BirthdayUiState? = null,
+    val groupSelected: GroupUiState? = null,
     val showBottomSheet: Boolean = false
 )

@@ -25,6 +25,7 @@ class EventsCreatorVM @Inject constructor(
             is EventsCreatorEvent.OnSaveEvent -> {}
             is EventsCreatorEvent.OnDateChanged -> onDateChanged(onEventParam)
             is EventsCreatorEvent.OnAddGroup -> {}
+            is EventsCreatorEvent.OnSelectGroup -> {}
         }
     }
 

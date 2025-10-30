@@ -7,7 +7,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import com.pmdm.birthdayremember.presentation.components.chip.ItemAction
+import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 
 // T is for Actions
@@ -17,7 +17,7 @@ import com.pmdm.birthdayremember.presentation.components.floatingbutton.Floating
 fun <Event1, Event2> BottomBarCommon2(
     onClickAction: (Event1) -> Unit,
     onClickFloating: (Event2) -> Unit,
-    actions: List<ItemAction<Event1>>,
+    actions: List<BottomBarAction<Event1>>,
     floatingAction: FloatingActionButton<Event2>
 ) {
     BottomAppBar(
@@ -26,7 +26,7 @@ fun <Event1, Event2> BottomBarCommon2(
                 IconButton(
                     onClick = { onClickAction(it.event) }
                 ) {
-                    Icon(imageVector = it.icon ?: Icons.Default.BrokenImage, it.name)
+                    Icon(imageVector = it.icon, it.name)
                 }
             }
         },

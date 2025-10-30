@@ -7,13 +7,13 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import com.pmdm.birthdayremember.presentation.components.chip.ItemAction
+import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 
 @Composable
 fun <Event> BottomBarCommon(
     onClick: (Event) -> Unit,
-    actions: List<ItemAction<Event>>,
+    actions: List<ChipAction<Event>>,
     floatingAction: FloatingActionButton<Event>
 ) {
     BottomAppBar(

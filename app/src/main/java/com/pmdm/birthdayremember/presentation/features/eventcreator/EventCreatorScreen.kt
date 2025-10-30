@@ -34,7 +34,6 @@ import com.pmdm.birthdayremember.presentation.components.globalvalues.MID_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.eventcreator.components.EventCard
 import com.pmdm.birthdayremember.presentation.features.eventcreator.components.EventCreatorBottomSheet
-import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 
 // Constants
@@ -93,7 +92,7 @@ fun EventCreatorScreen(
                 leadingIcon = {
                     Icon(Icons.Outlined.Person3, null)
                 },
-                value = eventCreatorUiState.birthdaySelected?.name ?: "",
+                value = eventCreatorUiState.name,
                 onValueChange = { name ->
                     onEvent(EventsCreatorEvent.OnNameChanged(name))
                 },
@@ -124,9 +123,8 @@ fun EventCreatorScreen(
             }
 
             if (eventCreatorUiState.showBottomSheet) {
-                //val options = listGroups.to
                 EventCreatorBottomSheet(
-                    options = TODO(),
+                    options = eventCreatorUiState.listGroups,
                     onEvent = onEvent,
                     sheetState = sheetState
                 )
@@ -154,8 +152,8 @@ fun PreviewEventCreator() {
             EventCreatorScreen(
                 onEvent = {},
                 eventCreatorUiState = EventCreatorUiState(),
-                
-            )
+
+                )
         }
     }
 }
