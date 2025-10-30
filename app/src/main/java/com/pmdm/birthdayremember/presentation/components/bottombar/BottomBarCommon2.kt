@@ -1,21 +1,24 @@
 package com.pmdm.birthdayremember.presentation.components.bottombar
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import com.pmdm.birthdayremember.presentation.components.chip.ItemAction
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 
 // T is for Actions
 // U is for Floating Button
 
 @Composable
-fun <T, U> BottomBarCommon2(
-    onClickAction: (T) -> Unit,
-    onClickFloating: (U) -> Unit,
-    actions: List<BottomBarAction<T>>,
-    floatingAction: FloatingActionButton<U>
+fun <Event1, Event2> BottomBarCommon2(
+    onClickAction: (Event1) -> Unit,
+    onClickFloating: (Event2) -> Unit,
+    actions: List<ItemAction<Event1>>,
+    floatingAction: FloatingActionButton<Event2>
 ) {
     BottomAppBar(
         actions = {
@@ -23,7 +26,7 @@ fun <T, U> BottomBarCommon2(
                 IconButton(
                     onClick = { onClickAction(it.event) }
                 ) {
-                    Icon(imageVector = it.icon, it.description)
+                    Icon(imageVector = it.icon ?: Icons.Default.BrokenImage, it.name)
                 }
             }
         },

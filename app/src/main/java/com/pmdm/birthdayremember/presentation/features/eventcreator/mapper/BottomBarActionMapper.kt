@@ -5,8 +5,8 @@ import androidx.compose.material.icons.twotone.BrokenImage
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
 import com.pmdm.birthdayremember.presentation.model.GroupUiState
 
-//fun <Event>GroupUiState.toBottomBarAction() = BottomBarAction<Event>(
-//    icon = icon ?: Icons.TwoTone.BrokenImage,
-//    description = name,
-//    event = event
-//)
+fun <Event>GroupUiState.toBottomBarAction(event: Event) = BottomBarAction(
+    icon = icon ?: Icons.TwoTone.BrokenImage,
+    name = name,
+    event = event,
+)

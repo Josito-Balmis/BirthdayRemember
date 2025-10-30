@@ -14,14 +14,14 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarCommon2
+import com.pmdm.birthdayremember.presentation.components.chip.ItemAction
 import com.pmdm.birthdayremember.presentation.components.floatingbutton.FloatingActionButton
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarCommon
-import com.pmdm.birthdayremember.presentation.features.lobby.components.ChipControl
 import com.pmdm.birthdayremember.presentation.features.lobby.components.ListBirthdays
 import com.pmdm.birthdayremember.presentation.features.lobby.components.LobbyBottomSheetOptions
+import com.pmdm.birthdayremember.presentation.features.lobby.components.LobbyChipControl
 import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
@@ -32,7 +32,7 @@ import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 fun LobbyScreen(
     lobbyUiState: LobbyUiState,
     listTopBarActions: List<TopBarAction<LobbyEvent>>,
-    listBottomBarActions: List<BottomBarAction<LobbyNavigationEvent>>,
+    listBottomBarActions: List<ItemAction<LobbyNavigationEvent>>,
     onLobbyEvent: (LobbyEvent) -> Unit,
     onNavigate: (LobbyNavigationEvent) -> Unit
 ) {
@@ -62,7 +62,7 @@ fun LobbyScreen(
     ) {
         Surface(Modifier.padding(it)) {
             Column(Modifier.fillMaxWidth()) {
-                ChipControl(
+                LobbyChipControl(
                     listGroups = lobbyUiState.listGroups,
                     onLobbyEvent = onLobbyEvent
                 )

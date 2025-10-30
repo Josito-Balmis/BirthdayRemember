@@ -1,6 +1,5 @@
 package com.pmdm.birthdayremember.presentation.navigation
 
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -17,15 +16,11 @@ fun NavGraphBuilder.displayEventCreatorDestination() {
     composable<EventCreatorRoute> {
         val vm = hiltViewModel<EventsCreatorVM>()
 
-        val listGroups by vm.listGroups.collectAsStateWithLifecycle()
-        val birthdayUiState by vm.birthdayUiState.collectAsStateWithLifecycle()
-        val showBottomSheet by vm.showBottomSheet.collectAsStateWithLifecycle()
+        val eventCreatorUiState by vm.uiState.collectAsStateWithLifecycle()
 
         EventCreatorScreen(
-            listGroups = listGroups,
-            birthdayUiState = birthdayUiState,
+            eventCreatorUiState = eventCreatorUiState,
             onEvent = vm::onEventsCreatorEvent,
-            showBottomSheet = showBottomSheet
         )
     }
 }

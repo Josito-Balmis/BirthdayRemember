@@ -1,5 +1,6 @@
 package com.pmdm.birthdayremember.presentation.features.lobby
 
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
 import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
 import com.pmdm.birthdayremember.presentation.model.GroupUiState
 

@@ -6,13 +6,13 @@ import androidx.compose.material.icons.twotone.Cake
 import androidx.compose.material.icons.twotone.Celebration
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.pmdm.birthdayremember.domain.entity.Group
+import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
 import com.pmdm.birthdayremember.presentation.model.GroupUiState
 
 fun Group.toUi() = GroupUiState(
     id = id,
     name = name,
-    icon = groupChipIconMapper(this.id),
-    isSelected = false,
+    icon = groupChipIconMapper(id),
 )
 
 fun List<Group>.toListUi() = map {

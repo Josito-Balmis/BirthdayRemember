@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material.icons.twotone.Cake
 import androidx.compose.material.icons.twotone.Close
 import androidx.compose.material3.Card
@@ -37,7 +38,7 @@ private val WIDTH_YEAR = 105.dp
 @Composable
 fun EventCard(
     groupUiState: GroupUiState,
-    birthdayUiState: BirthdayUiState,
+    birthdayUiState: BirthdayUiState?,
     onEvent: (EventsCreatorEvent) -> Unit
 ) {
     Card(Modifier.fillMaxWidth()) {
@@ -69,13 +70,13 @@ fun EventCard(
             Row(Modifier.align(Alignment.CenterHorizontally)) {
                 TextFieldDate(
                     modifier = Modifier.widthIn(max = WIDTH_DAY),
-                    date = birthdayUiState.date?.dayOfMonth,
+                    date = birthdayUiState?.date?.dayOfMonth,
                     label = "Día",
                     validationState = MockValidation(false),
                     onValueChanged = { day ->
                         onEvent(
                             EventsCreatorEvent.OnDateChanged(
-                                birthdayUiState.date!!.withDayOfMonth(day)
+                                birthdayUiState?.date!!.withDayOfMonth(day)
                             )
                         )
                     }
@@ -85,19 +86,19 @@ fun EventCard(
 
                 TextFieldDate(
                     modifier = Modifier.widthIn(max = WIDTH_DAY),
-                    date = birthdayUiState.date?.monthValue,
+                    date = birthdayUiState?.date?.monthValue,
                     label = "Mes",
                     validationState = MockValidation(false),
                     onValueChanged = { month ->
                         onEvent(
                             EventsCreatorEvent.OnDateChanged(
-                                birthdayUiState.date!!.withMonth(month)
+                                birthdayUiState?.date!!.withMonth(month)
                             )
                         )
                     }
                 )
 
-                if (birthdayUiState.hasYear) {
+                if (birthdayUiState?.hasYear == true) {
                     Spacer(Modifier.padding(MID_DP))
 
                     TextFieldDate(
@@ -126,7 +127,13 @@ data class MockValidation(override val hayError: Boolean) : Validacion
 @Composable
 fun PreviewEventCard() {
     EventCard(
-        groupUiState = GroupUiState(name = "Cumpleaños"),
+        groupUiState = GroupUiState(
+            name = "Cumpleaños",
+            id = 1,
+            icon = Icons.Default.BrokenImage,
+            isSelected = false,
+
+        ),
         onEvent = {},
         birthdayUiState = BirthdayUiState().copy(date = LocalDate.now())
     )

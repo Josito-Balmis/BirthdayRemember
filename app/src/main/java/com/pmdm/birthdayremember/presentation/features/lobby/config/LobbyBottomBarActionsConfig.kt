@@ -11,12 +11,12 @@ fun lobbyBottomBarActionsConfig(): List<BottomBarAction<LobbyNavigationEvent>> =
         BottomBarAction(
             event = LobbyNavigationEvent.OnNavigateLobby,
             icon = Icons.TwoTone.Home,
-            description = "List of Birthdays"
+            name = "List of Birthdays"
         ),
         BottomBarAction(
             event = LobbyNavigationEvent.OnNavigateCalendar,
             icon = Icons.TwoTone.CalendarMonth,
-            description = "Calendar"
+            name = "Calendar"
         ),
     )
 

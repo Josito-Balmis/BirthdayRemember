@@ -9,11 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.pmdm.birthdayremember.presentation.components.chip.ChipCommon
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
+import com.pmdm.birthdayremember.presentation.features.eventcreator.mapper.toBottomBarAction
 import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
 import com.pmdm.birthdayremember.presentation.model.GroupUiState
 
 @Composable
-fun ChipControl(
+fun LobbyChipControl(
     listGroups: List<GroupUiState>,
     onLobbyEvent: (LobbyEvent) -> Unit,
 ) {
@@ -23,8 +24,8 @@ fun ChipControl(
         listGroups.forEach { group ->
             Spacer(Modifier.padding(MIN_DP))
 
-            ChipCommon(
-                action = group,
+            ChipCommon<LobbyEvent>(
+                action = group.toBottomBarAction(LobbyEvent.OnSelectGroup(group.id)),
                 onEvent = {
                     onLobbyEvent(it)
                 }

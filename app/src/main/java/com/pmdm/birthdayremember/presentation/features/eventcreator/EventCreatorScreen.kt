@@ -34,7 +34,6 @@ import com.pmdm.birthdayremember.presentation.components.globalvalues.MID_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.eventcreator.components.EventCard
 import com.pmdm.birthdayremember.presentation.features.eventcreator.components.EventCreatorBottomSheet
-import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
 import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 
@@ -46,13 +45,10 @@ private val IMAGE_SIZE = 150.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventCreatorScreen(
-    listGroups: List<GroupUiState>,
-    birthdayUiState: BirthdayUiState,
-    showBottomSheet: Boolean,
+    eventCreatorUiState: EventCreatorUiState,
     onEvent: (EventsCreatorEvent) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
 
     Column(Modifier.fillMaxSize()) {
         Box(
@@ -97,7 +93,7 @@ fun EventCreatorScreen(
                 leadingIcon = {
                     Icon(Icons.Outlined.Person3, null)
                 },
-                value = birthdayUiState.name,
+                value = eventCreatorUiState.birthdaySelected?.name ?: "",
                 onValueChange = { name ->
                     onEvent(EventsCreatorEvent.OnNameChanged(name))
                 },
@@ -109,12 +105,12 @@ fun EventCreatorScreen(
             Spacer(Modifier.padding(MID_DP))
 
             LazyColumn {
-                items(items = listGroups, key = { it.id }
+                items(items = eventCreatorUiState.listGroups, key = { it.id }
                 ) { groupUiState ->
                     EventCard(
                         groupUiState = groupUiState,
                         onEvent = onEvent,
-                        birthdayUiState = birthdayUiState
+                        birthdayUiState = eventCreatorUiState.birthdaySelected
                     )
                 }
             }
@@ -127,7 +123,8 @@ fun EventCreatorScreen(
                 Text("Añadir evento")
             }
 
-            if (showBottomSheet) {
+            if (eventCreatorUiState.showBottomSheet) {
+                //val options = listGroups.to
                 EventCreatorBottomSheet(
                     options = TODO(),
                     onEvent = onEvent,
@@ -136,7 +133,7 @@ fun EventCreatorScreen(
             }
 
             Button(
-                onClick = { onEvent(EventsCreatorEvent.OnSaveEvent(birthdayUiState = birthdayUiState)) },
+                onClick = { onEvent(EventsCreatorEvent.OnSaveEvent(birthdayUiState = eventCreatorUiState.birthdaySelected!!)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(MAX_DP)
@@ -155,10 +152,9 @@ fun PreviewEventCreator() {
     BirthDayTheme {
         Surface(Modifier.fillMaxSize()) {
             EventCreatorScreen(
-                listGroups = listOf(),
-                birthdayUiState = BirthdayUiState(),
                 onEvent = {},
-                showBottomSheet = false
+                eventCreatorUiState = EventCreatorUiState(),
+                
             )
         }
     }

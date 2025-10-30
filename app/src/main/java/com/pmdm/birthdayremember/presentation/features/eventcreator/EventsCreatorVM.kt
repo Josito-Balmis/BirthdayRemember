@@ -1,8 +1,6 @@
 package com.pmdm.birthdayremember.presentation.features.eventcreator
 
 import androidx.lifecycle.ViewModel
-import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
-import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,21 +13,8 @@ class EventsCreatorVM @Inject constructor(
 ) : ViewModel() {
 
     // Properties
-    private val _listGroups = MutableStateFlow<List<GroupUiState>>(emptyList())
-    val listGroups = _listGroups.asStateFlow()
-
-    private val _birthdayState = MutableStateFlow(BirthdayUiState())
-    val birthdayUiState = _birthdayState.asStateFlow()
-
-    private val _showBottomSheet = MutableStateFlow(false)
-    val showBottomSheet = _showBottomSheet.asStateFlow()
-
-    // Constructor
-//    init {
-//        viewModelScope.launch {
-//            //loadListGroups()
-//        }
-//    }
+    private val _uiState = MutableStateFlow(EventCreatorUiState())
+    val uiState = _uiState.asStateFlow()
 
     // Events
     fun onEventsCreatorEvent(onEventParam: EventsCreatorEvent) {
@@ -43,32 +28,22 @@ class EventsCreatorVM @Inject constructor(
         }
     }
 
-
-    // Load Functions
-//    private suspend fun loadListGroups() {
-//        val result = getGroupsUseCase()
-//
-//        result.onFailure {
-//            throw Exception("The group list couldn't be posible to load it")
-//        }.onSuccess {
-//            _listGroups.value = it.toListUi()
-//        }
-//    }
-
     // Encapsuled Functions
     private fun onNameChanged(onEventParam: EventsCreatorEvent.OnNameChanged) {
-        _birthdayState.update { currentState ->
+        _uiState.update { currentState ->
             currentState.copy(name = onEventParam.name)
         }
     }
 
     private fun onDateChanged(onEventParam: EventsCreatorEvent.OnDateChanged) {
-        _birthdayState.update { currentState ->
-            currentState.copy(date = onEventParam.date)
+        _uiState.update {
+            it.copy(birthdaySelected = it.birthdaySelected?.copy(date = onEventParam.date))
         }
     }
 
     private fun onShowBottomSheet(onEventParam: EventsCreatorEvent.OnShowBottomSheet) {
-        _showBottomSheet.update { onEventParam.isShow }
+        _uiState.update {
+            it.copy(showBottomSheet = onEventParam.isShow)
+        }
     }
 }

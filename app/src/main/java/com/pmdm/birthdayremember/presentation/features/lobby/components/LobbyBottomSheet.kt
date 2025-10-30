@@ -9,26 +9,27 @@ import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
 import com.pmdm.birthdayremember.presentation.components.bottomsheet.DefaultBottomSheetOptions
+import com.pmdm.birthdayremember.presentation.components.chip.ItemAction
 import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
 
 // Constants
 
 // All options
-private fun getOptions(): List<BottomBarAction<LobbyNavigationEvent>> = listOf(
+private fun getOptions(): List<ItemAction<LobbyNavigationEvent>> = listOf(
     BottomBarAction(
         icon = Icons.TwoTone.Contacts,
-        description = "Importar contactos",
+        name = "Importar contactos",
         event = LobbyNavigationEvent.OnNavigateImportContacts
     ),
     BottomBarAction(
         icon = Icons.TwoTone.Event,
-        description = "Añadir un evento",
+        name = "Añadir un evento",
         event = LobbyNavigationEvent.OnNavigateAddEvent
     ),
     BottomBarAction(
         icon = Icons.TwoTone.Category,
-        description = "Añadir categoría",
+        name = "Añadir categoría",
         event = LobbyNavigationEvent.OnNavigateAddCategory
     )
 )
