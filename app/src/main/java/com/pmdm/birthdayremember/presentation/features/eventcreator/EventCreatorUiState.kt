@@ -5,6 +5,7 @@ import com.pmdm.birthdayremember.presentation.model.GroupUiState
 
 data class EventCreatorUiState(
     val listGroups: List<GroupUiState> = emptyList(),
+    val listBirthdays: List<BirthdayUiState> = emptyList(),
     val name: String = "",
     val birthdaySelected: BirthdayUiState? = null,
     val groupSelected: GroupUiState? = null,

@@ -25,7 +25,9 @@ fun EventCreatorBottomSheet(
     DefaultBottomSheetOptions(
         sheetState = sheetState,
         options = listBottomSheetAction,
-        onDismissRequest = {},
-        onClick = { onEvent(it) }
+        onDismissRequest = { onEvent(EventsCreatorEvent.OnShowBottomSheet(isShow = false)) },
+        onClick = {
+            onEvent(EventsCreatorEvent.OnShowBottomSheet(isShow = false))
+            onEvent(it) }
     )
 }

@@ -50,7 +50,9 @@ fun LobbyBottomSheetOptions(
         onDismissRequest = {
             onLobbyEvent(LobbyEvent.OnShowBottomSheet(isShow = false))
         },
-        onClick = { onNavigate(it) }
+        onClick = {
+            onLobbyEvent(LobbyEvent.OnShowBottomSheet(isShow = false))
+            onNavigate(it) }
     )
 }
 

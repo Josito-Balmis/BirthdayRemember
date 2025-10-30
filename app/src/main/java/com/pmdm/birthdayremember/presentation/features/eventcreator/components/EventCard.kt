@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.github.pmdmiesbalmis.components.validacion.Validacion
+import com.pmdm.birthdayremember.presentation.components.globalvalues.MAX_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MID_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.eventcreator.EventsCreatorEvent
@@ -41,7 +42,7 @@ fun EventCard(
     birthdayUiState: BirthdayUiState?,
     onEvent: (EventsCreatorEvent) -> Unit
 ) {
-    Card(Modifier.fillMaxWidth()) {
+    Card(Modifier.fillMaxWidth().padding(MAX_DP)) {
         Column(Modifier.fillMaxWidth()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),

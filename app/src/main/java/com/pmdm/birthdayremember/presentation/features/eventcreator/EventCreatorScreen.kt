@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -39,6 +40,7 @@ import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 // Constants
 private val TOP_PADD = 32.dp
 private val IMAGE_SIZE = 150.dp
+private val LAZYCOLUMN_HEIGHT = 300.dp
 
 // Composable Functions
 @OptIn(ExperimentalMaterial3Api::class)
@@ -103,13 +105,13 @@ fun EventCreatorScreen(
 
             Spacer(Modifier.padding(MID_DP))
 
-            LazyColumn {
-                items(items = eventCreatorUiState.listGroups, key = { it.id }
-                ) { groupUiState ->
+            LazyColumn(Modifier.fillMaxWidth().height(LAZYCOLUMN_HEIGHT)) {
+                items(items = eventCreatorUiState.listBirthdays, key = { it.id }
+                ) { birthdayUiState ->
                     EventCard(
-                        groupUiState = groupUiState,
+                        groupUiState = eventCreatorUiState.groupSelected!!,
                         onEvent = onEvent,
-                        birthdayUiState = eventCreatorUiState.birthdaySelected
+                        birthdayUiState = birthdayUiState
                     )
                 }
             }
@@ -122,14 +124,6 @@ fun EventCreatorScreen(
                 Text("Añadir evento")
             }
 
-            if (eventCreatorUiState.showBottomSheet) {
-                EventCreatorBottomSheet(
-                    options = eventCreatorUiState.listGroups,
-                    onEvent = onEvent,
-                    sheetState = sheetState
-                )
-            }
-
             Button(
                 onClick = { onEvent(EventsCreatorEvent.OnSaveEvent(birthdayUiState = eventCreatorUiState.birthdaySelected!!)) },
                 modifier = Modifier
@@ -140,8 +134,14 @@ fun EventCreatorScreen(
             }
         }
 
+        if (eventCreatorUiState.showBottomSheet) {
+            EventCreatorBottomSheet(
+                options = eventCreatorUiState.listGroups,
+                onEvent = onEvent,
+                sheetState = sheetState
+            )
+        }
     }
-
 }
 
 @Preview
