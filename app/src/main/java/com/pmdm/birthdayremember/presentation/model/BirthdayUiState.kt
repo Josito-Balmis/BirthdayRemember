@@ -11,7 +11,7 @@ private val formatWithoutYear = DateTimeFormatter.ofPattern("dd/MM")
 //Main class
 data class BirthdayUiState(
     val id: Int = 0,
-    val idGroup: Int = 0,
+    val groupUiState: GroupUiState = GroupUiState(),
     val zodiac: Zodiac = Zodiac(Zodiac.ZodiacName.Ninguno),
     val name: String = "",
     val date: LocalDate? = null,

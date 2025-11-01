@@ -3,24 +3,27 @@ package com.pmdm.birthdayremember.presentation.features.lobby.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PersonPin
 import androidx.compose.material3.Card
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.pmdm.birthdayremember.domain.valueobject.Zodiac
+import com.pmdm.birthdayremember.presentation.components.globalvalues.MAX_DP
+import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 import java.time.LocalDate
-import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 
 @Composable
 fun BirthdayCard(birthday: BirthdayUiState) {
@@ -29,27 +32,26 @@ fun BirthdayCard(birthday: BirthdayUiState) {
             .padding(MIN_DP)
             .fillMaxWidth()
     ) {
-        Box(Modifier.fillMaxSize()) {
-            Image(
-                modifier = Modifier.align(Alignment.CenterStart),
-                imageVector = Icons.Filled.PersonPin,
-                contentDescription = "Generic icon from birthday person"
-            )
-
-            Spacer(Modifier.padding(MIN_DP))
-
-            Column(
+        Box(Modifier.padding(MAX_DP)) {
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .align(Alignment.Center)
             ) {
-                Text(birthday.name)
+                Image(
+                    modifier = Modifier.size(50.dp),
+                    imageVector = Icons.Filled.PersonPin,
+                    contentDescription = "Generic icon from birthday person"
+                )
+                
+                Column {
+                    Text(birthday.name)
 
-                Spacer(Modifier.padding(MIN_DP))
+                    Spacer(Modifier.padding(MIN_DP))
 
-                Text("${birthday.formattedDate()} - Cumple $ años.")
+                    Text("${birthday.formattedDate()} - Cumple $ años.")
+                }
             }
-
         }
     }
 }
@@ -58,20 +60,18 @@ fun BirthdayCard(birthday: BirthdayUiState) {
 @Composable
 fun PreviewBirthdayCard() {
     BirthDayTheme {
-        Surface(Modifier.fillMaxSize()) {
-            val fecha = LocalDate.of(2003, 2, 3)
+        val fecha = LocalDate.of(2003, 2, 3)
 
-            BirthdayCard(
-                BirthdayUiState(
-                    idGroup = 1,
-                    name = "Yusep",
-                    zodiac = Zodiac.getZodiacSignByDate(fecha),
-                    date = fecha,
-                    hasYear = true,
-                    notes = "Me gustaria regalarle un nuevo piano.",
-                    image = null
-                )
+        BirthdayCard(
+            BirthdayUiState(
+                groupUiState = GroupUiState(),
+                name = "Yusep",
+                zodiac = Zodiac.getZodiacSignByDate(fecha),
+                date = fecha,
+                hasYear = true,
+                notes = "Me gustaria regalarle un nuevo piano.",
+                image = null
             )
-        }
+        )
     }
 }

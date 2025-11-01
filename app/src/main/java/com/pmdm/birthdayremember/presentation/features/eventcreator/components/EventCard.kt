@@ -28,6 +28,7 @@ import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.eventcreator.EventsCreatorEvent
 import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
 import com.pmdm.birthdayremember.presentation.model.GroupUiState
+import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 import java.time.LocalDate
 
 // Constants
@@ -42,7 +43,9 @@ fun EventCard(
     birthdayUiState: BirthdayUiState?,
     onEvent: (EventsCreatorEvent) -> Unit
 ) {
-    Card(Modifier.fillMaxWidth().padding(MAX_DP)) {
+    Card(Modifier
+        .fillMaxWidth()
+        .padding(MAX_DP)) {
         Column(Modifier.fillMaxWidth()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -127,16 +130,18 @@ data class MockValidation(override val hayError: Boolean) : Validacion
 @Preview
 @Composable
 fun PreviewEventCard() {
-    EventCard(
-        groupUiState = GroupUiState(
-            name = "Cumpleaños",
-            id = 1,
-            icon = Icons.Default.BrokenImage,
-            isSelected = false,
+    BirthDayTheme {
+        EventCard(
+            groupUiState = GroupUiState(
+                name = "Cumpleaños",
+                id = 1,
+                icon = Icons.Default.BrokenImage,
+                isSelected = false,
 
-        ),
-        onEvent = {},
-        birthdayUiState = BirthdayUiState().copy(date = LocalDate.now())
-    )
+                ),
+            onEvent = {},
+            birthdayUiState = BirthdayUiState().copy(date = LocalDate.now())
+        )
+    }
 }
 
