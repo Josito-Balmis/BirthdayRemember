@@ -5,20 +5,20 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.pmdm.birthdayremember.infraestructure.room.dao.BirthdayDao
+import com.pmdm.birthdayremember.infraestructure.room.dao.EventDao
 import com.pmdm.birthdayremember.infraestructure.room.dao.GroupDao
-import com.pmdm.birthdayremember.infraestructure.room.entity.BirthdayEntity
+import com.pmdm.birthdayremember.infraestructure.room.entity.EventEntity
 import com.pmdm.birthdayremember.infraestructure.room.entity.GroupEntity
 import com.pmdm.birthdayremember.infraestructure.room.mapper.DatabaseConverter
 
 @Database(
-    entities = [BirthdayEntity::class, GroupEntity::class],
-    version = 1,
+    entities = [EventEntity::class, GroupEntity::class],
+    version = 2,
     exportSchema = true
 )
 @TypeConverters(DatabaseConverter::class)
 abstract class AppDataBase : RoomDatabase() {
-    abstract fun birthdayDao(): BirthdayDao
+    abstract fun eventDao(): EventDao
     abstract fun groupDao(): GroupDao
 
     companion object {

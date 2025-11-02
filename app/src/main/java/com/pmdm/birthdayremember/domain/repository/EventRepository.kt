@@ -1,17 +1,17 @@
 package com.pmdm.birthdayremember.domain.repository
 
-import com.pmdm.birthdayremember.domain.entity.Birthday
+import com.pmdm.birthdayremember.domain.entity.Event
 
-interface BirthdayRepository {
-    suspend fun get(): List<Birthday>
-    suspend fun get(id: Long): Birthday
-    suspend fun getAllByGroup(idGroup: Int): List<Birthday>
-    suspend fun getByGroup(idGroup: Int): Birthday
-    suspend fun getAllByName(name: String): List<Birthday>
-    suspend fun getByName(name: String): Birthday
-    suspend fun getAllByNameAndGroup(name: String, idGroup: Int): List<Birthday>
-    suspend fun getByNameAndGroup(name: String, idGroup: Int): Birthday
-    suspend fun insert(birthday: Birthday)
-    suspend fun update(birthday: Birthday)
+interface EventRepository {
+    suspend fun get(): List<Event>
+    suspend fun get(id: Long): Event?
+    suspend fun getAllByGroup(idGroup: Int): List<Event>
+    suspend fun getByGroup(idGroup: Int): Event?
+    suspend fun getAllByName(name: String): List<Event>
+    suspend fun getByName(name: String): Event?
+    suspend fun getAllByNameAndGroup(name: String, idGroup: Int): List<Event>
+    suspend fun getByNameAndGroup(name: String, idGroup: Int): Event?
+    suspend fun insert(event: Event)
+    suspend fun update(event: Event)
     suspend fun delete(id: Long)
 }

@@ -1,8 +1,8 @@
 package com.pmdm.birthdayremember.infraestructure.room.repository
 
-import com.pmdm.birthdayremember.domain.entity.Birthday
-import com.pmdm.birthdayremember.domain.repository.BirthdayRepository
-import com.pmdm.birthdayremember.infraestructure.room.dao.BirthdayDao
+import com.pmdm.birthdayremember.domain.entity.Event
+import com.pmdm.birthdayremember.domain.repository.EventRepository
+import com.pmdm.birthdayremember.infraestructure.room.dao.EventDao
 import com.pmdm.birthdayremember.infraestructure.room.mapper.toDao
 import com.pmdm.birthdayremember.infraestructure.room.mapper.toDomain
 import com.pmdm.birthdayremember.infraestructure.room.mapper.toListDomain
@@ -12,53 +12,53 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BirthdayRepositoryImpl @Inject constructor(
-    private val birthdayDao: BirthdayDao
-) : BirthdayRepository {
+class EventRepositoryImpl @Inject constructor(
+    private val eventDao: EventDao
+) : EventRepository {
 
-    override suspend fun get(): List<Birthday> = withContext(Dispatchers.IO) {
-        birthdayDao.get().toListDomain()
+    override suspend fun get(): List<Event> = withContext(Dispatchers.IO) {
+        eventDao.get().toListDomain()
     }
 
-    override suspend fun get(id: Long): Birthday = withContext(Dispatchers.IO) {
-        birthdayDao.get(id).toDomain()
+    override suspend fun get(id: Long): Event? = withContext(Dispatchers.IO) {
+        eventDao.get(id)?.toDomain()
     }
 
-    override suspend fun getAllByGroup(idGroup: Int): List<Birthday> = withContext(Dispatchers.IO) {
-        birthdayDao.getAllByGroup(idGroup).toListDomain()
+    override suspend fun getAllByGroup(idGroup: Int): List<Event> = withContext(Dispatchers.IO) {
+        eventDao.getAllByGroup(idGroup).toListDomain()
     }
 
-    override suspend fun getByGroup(idGroup: Int): Birthday = withContext(Dispatchers.IO) {
-        birthdayDao.getByGroup(idGroup).toDomain()
+    override suspend fun getByGroup(idGroup: Int): Event? = withContext(Dispatchers.IO) {
+        eventDao.getByGroup(idGroup)?.toDomain()
     }
 
-    override suspend fun getAllByName(name: String): List<Birthday> = withContext(Dispatchers.IO) {
-        birthdayDao.getAllByName(name).toListDomain()
+    override suspend fun getAllByName(name: String): List<Event> = withContext(Dispatchers.IO) {
+        eventDao.getAllByName(name).toListDomain()
     }
 
-    override suspend fun getByName(name: String): Birthday = withContext(Dispatchers.IO) {
-        birthdayDao.getByName(name).toDomain()
+    override suspend fun getByName(name: String): Event? = withContext(Dispatchers.IO) {
+        eventDao.getByName(name)?.toDomain()
     }
 
-    override suspend fun getAllByNameAndGroup(name: String, idGroup: Int): List<Birthday> =
+    override suspend fun getAllByNameAndGroup(name: String, idGroup: Int): List<Event> =
         withContext(Dispatchers.IO) {
-            birthdayDao.getAllByNameAndGroup(name, idGroup).toListDomain()
+            eventDao.getAllByNameAndGroup(name, idGroup).toListDomain()
         }
 
-    override suspend fun getByNameAndGroup(name: String, idGroup: Int): Birthday =
+    override suspend fun getByNameAndGroup(name: String, idGroup: Int): Event? =
         withContext(Dispatchers.IO) {
-            birthdayDao.getByNameAndGroup(name, idGroup).toDomain()
+            eventDao.getByNameAndGroup(name, idGroup)?.toDomain()
         }
 
-    override suspend fun insert(birthday: Birthday) = withContext(Dispatchers.IO) {
-        birthdayDao.insert(birthday.toDao())
+    override suspend fun insert(event: Event) = withContext(Dispatchers.IO) {
+        eventDao.insert(event.toDao())
     }
 
-    override suspend fun update(birthday: Birthday) = withContext(Dispatchers.IO) {
-        birthdayDao.update(birthday.toDao())
+    override suspend fun update(event: Event) = withContext(Dispatchers.IO) {
+        eventDao.update(event.toDao())
     }
 
     override suspend fun delete(id: Long) = withContext(Dispatchers.IO) {
-        birthdayDao.delete(id)
+        eventDao.delete(id)
     }
 }

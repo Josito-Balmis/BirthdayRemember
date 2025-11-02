@@ -4,10 +4,21 @@ import java.time.LocalDate
 import java.time.MonthDay
 import java.time.temporal.ChronoUnit
 
-class BirthdayDate(
-    private val birthdayDate: LocalDate
+class EventDate(
+    val localDate: LocalDate
 ) {
-    // Own LocalDate object has a method which return whether a date is leap or not
+    fun age(): Int = LocalDate.now().year - localDate.year
+
+    fun futureAge(): Int = age() + 1
+
+    fun remainingDays(): Int {
+        val now = LocalDate.now()
+        var next = MonthDay.from(localDate).atYear(now.year)
+        if (!next.isAfter(now)) next = next.plusYears(1)
+        return ChronoUnit.DAYS.between(now, next).toInt()
+    }
+
+    // Own LocalDate has a method which return whether a date is leap or not
     companion object {
         fun isLeap(year: Int): Boolean {
             if (year % 4 != 0) return false
@@ -17,43 +28,4 @@ class BirthdayDate(
             return false
         }
     }
-
-    fun currentAge(): Int {
-        val currentDate = LocalDate.now()
-
-        return currentDate.year - birthdayDate.year
-    }
-
-    fun futureAge(): Int {
-        val currentAge = currentAge()
-        return currentAge + 1
-    }
-
-    fun daysAlive(): Int {
-        val currentDate = LocalDate.now()
-
-        var days = 0
-        for (year in birthdayDate.year..currentDate.year) {
-            if (isLeap(year))
-                days++
-
-            days += 365
-        }
-
-        return days
-    }
-
-    fun remainingDaysToBirthday(): Int {
-        val currentDate = LocalDate.now()
-        val birthdateWithCurrentYear = MonthDay.from(birthdayDate).atYear(currentDate.year)
-
-        if (birthdateWithCurrentYear.isBefore(currentDate)) {
-            birthdateWithCurrentYear.plusYears(1)
-        }
-
-        return ChronoUnit.DAYS.between(currentDate, birthdateWithCurrentYear).toInt()
-    }
-
-
-
 }

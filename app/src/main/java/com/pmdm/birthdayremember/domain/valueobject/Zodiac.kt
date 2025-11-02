@@ -23,7 +23,7 @@ data class Zodiac(
     }
 
     companion object {
-        fun getZodiacSignByDate(date: LocalDate): Zodiac {
+        fun fromDate(date: LocalDate): Zodiac {
             val dia = MonthDay.of(date.month, date.dayOfMonth)
 
             val name = when {

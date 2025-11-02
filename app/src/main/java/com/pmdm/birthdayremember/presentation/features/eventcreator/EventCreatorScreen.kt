@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -105,27 +105,27 @@ fun EventCreatorScreen(
 
             Spacer(Modifier.padding(MID_DP))
 
-            LazyColumn(Modifier.fillMaxWidth().height(LAZYCOLUMN_HEIGHT)) {
-                items(items = eventCreatorUiState.listBirthdays, key = { it.id }
-                ) { birthdayUiState ->
-                    EventCard(
-                        groupUiState = eventCreatorUiState.groupSelected!!,
-                        onEvent = onEvent,
-                        birthdayUiState = birthdayUiState
-                    )
-                }
-            }
-
-            Spacer(Modifier.padding(MID_DP))
-
             TextButton(onClick = { onEvent(EventsCreatorEvent.OnShowBottomSheet(isShow = true)) }) {
                 Icon(Icons.TwoTone.AddCircle, null)
                 Spacer(Modifier.padding(MIN_DP))
                 Text("Añadir evento")
             }
 
+            LazyColumn(Modifier.fillMaxWidth().heightIn(max = LAZYCOLUMN_HEIGHT)) {
+                items(items = eventCreatorUiState.listBirthdays, key = { it.id }
+                ) { birthdayUiState ->
+                    EventCard(
+                        groupUiState = eventCreatorUiState.groupSelected!!,
+                        onEvent = onEvent,
+                        eventUiState = birthdayUiState
+                    )
+                }
+            }
+
+            Spacer(Modifier.padding(MID_DP))
+
             Button(
-                onClick = { onEvent(EventsCreatorEvent.OnSaveEvent(birthdayUiState = eventCreatorUiState.birthdaySelected!!)) },
+                onClick = { onEvent(EventsCreatorEvent.OnSaveEvent(eventUiState = eventCreatorUiState.birthdaySelected!!)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(MAX_DP)

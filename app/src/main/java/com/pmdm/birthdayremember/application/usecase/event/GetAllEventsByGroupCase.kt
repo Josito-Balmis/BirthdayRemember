@@ -9,12 +9,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetAllEventsUseCase @Inject constructor(
+class GetAllEventsByGroupCase @Inject constructor(
     private val eventRepository: EventRepository
 ) {
-    suspend operator fun invoke(): Result<List<Event>> {
+    suspend operator fun invoke(idGroup: Int): Result<List<Event>> {
         try {
-            val listEvents = eventRepository.get()
+            val listEvents = eventRepository.getAllByGroup(idGroup)
 
             return Result.success(listEvents)
         } catch (e: IOException) {

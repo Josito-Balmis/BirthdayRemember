@@ -1,8 +1,8 @@
 package com.pmdm.birthdayremember.domain.entity
 
 data class Group(
-    val id: Int,
-    val name: String,
+    val id: Int = 0,
+    val name: String = "",
 ) {
     init {
         require(name.isNotBlank()) {

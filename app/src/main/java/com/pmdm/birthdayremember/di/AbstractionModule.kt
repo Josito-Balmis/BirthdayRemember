@@ -1,8 +1,8 @@
 package com.pmdm.birthdayremember.di
 
-import com.pmdm.birthdayremember.domain.repository.BirthdayRepository
+import com.pmdm.birthdayremember.domain.repository.EventRepository
 import com.pmdm.birthdayremember.domain.repository.GroupRepository
-import com.pmdm.birthdayremember.infraestructure.room.repository.BirthdayRepositoryImpl
+import com.pmdm.birthdayremember.infraestructure.room.repository.EventRepositoryImpl
 import com.pmdm.birthdayremember.infraestructure.room.repository.GroupRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -13,7 +13,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class AbstractionModule {
     @Binds
-    abstract fun bindBirthdayRepository(impl: BirthdayRepositoryImpl): BirthdayRepository
+    abstract fun bindBirthdayRepository(impl: EventRepositoryImpl): EventRepository
 
     @Binds
     abstract fun bindGroupRepository(impl : GroupRepositoryImpl) : GroupRepository

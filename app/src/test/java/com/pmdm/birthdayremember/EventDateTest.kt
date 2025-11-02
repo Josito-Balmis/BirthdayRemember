@@ -1,6 +1,6 @@
 package com.pmdm.birthdayremember
 
-import com.pmdm.birthdayremember.domain.valueobject.BirthdayDate
+import com.pmdm.birthdayremember.domain.valueobject.EventDate
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.LocalDate
@@ -10,7 +10,7 @@ import java.time.LocalDate
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class BirthdayDateTest {
+class EventDateTest {
 
 
     @Test
@@ -21,7 +21,7 @@ class BirthdayDateTest {
 
         for (year in years) {
             assertTrue(
-                "El año $year debería ser bisiesto.", BirthdayDate.isLeap(year)
+                "El año $year debería ser bisiesto.", EventDate.isLeap(year)
             )
         }
     }
@@ -34,38 +34,38 @@ class BirthdayDateTest {
 
         for (year in years) {
             assertTrue(
-                "El año $year no debería ser bisiesto.", BirthdayDate.isLeap(year).not()
+                "El año $year no debería ser bisiesto.", EventDate.isLeap(year).not()
             )
         }
     }
 
     @Test
     fun `returns the correct currently age`() {
-        val birthdayDate = BirthdayDate(
-            birthdayDate = LocalDate.of(2003, 3, 2)
+        val eventDate = EventDate(
+            localDate = LocalDate.of(2003, 3, 2)
         )
-        val currentyAge = birthdayDate.currentAge()
+        val currentyAge = eventDate.age()
 
         assertTrue("La edad actual deberia de ser de 22 años", currentyAge == 22)
     }
 
     @Test
     fun `returns the correct future age`() {
-        val birthdayDate = BirthdayDate(
-            birthdayDate = LocalDate.of(2003, 3, 2)
+        val eventDate = EventDate(
+            localDate = LocalDate.of(2003, 3, 2)
         )
-        val futureAge = birthdayDate.futureAge()
+        val futureAge = eventDate.futureAge()
 
         assertTrue("La edad futura deberia de ser 23", futureAge == 23)
     }
 
     @Test
     fun `returns the correct remaining days for the birtday`() {
-        val birthdayDate = BirthdayDate(
-            birthdayDate = LocalDate.of(2003, 6, 26)
+        val eventDate = EventDate(
+            localDate = LocalDate.of(2003, 6, 26)
         )
 
-        val days = birthdayDate.remainingDaysToBirthday()
+        val days = eventDate.remainingDays()
         assertTrue("Debería de haber devuelto 1 día total", days == 0)
     }
 

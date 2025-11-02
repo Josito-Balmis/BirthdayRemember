@@ -1,25 +1,20 @@
 package com.pmdm.birthdayremember.domain.entity
 
+import com.pmdm.birthdayremember.domain.valueobject.EventDate
 import com.pmdm.birthdayremember.domain.valueobject.Zodiac
-import java.time.LocalDate
 
-class Birthday(
+class Event(
     val id: Int,
-    val idGroup: Int,
-    val zodiac: Zodiac,
+    val group: Group,
     val name: String,
-    val date: LocalDate,
-    val hasYear: Boolean,
+    val eventDate: EventDate,
     val notes: String?,
     val image: String?
 ) {
-    init {
-        require(idGroup != 0) {
-            "Grupo no seleccionado."
-        }
-        require(name.isNotBlank()) {
-            "El nombre no puede estar vacío."
-        }
-    }
+    val zodiac = Zodiac.fromDate(eventDate.localDate)
 
+    init {
+        require(group.id != 0) { "Grupo no seleccionado." }
+        require(name.isNotBlank()) { "El nombre no puede estar vacío." }
+    }
 }

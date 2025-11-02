@@ -7,7 +7,7 @@ import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
 @Singleton
-class CreateBirthdayUseCase @Inject constructor(
+class CreateEventUseCase @Inject constructor(
     private val eventRepository: EventRepository
 ) {
     suspend operator fun invoke(event: Event): Result<Unit> {

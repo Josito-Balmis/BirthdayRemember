@@ -18,14 +18,12 @@ import java.time.LocalDate
     indices = [Index(value = ["idGroup"])]
 
 )
-data class BirthdayEntity(
+data class EventEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val idGroup: Int,
-    val zodiac: Zodiac,
     val name: String,
     val date: LocalDate,
-    val hasYear: Boolean,
     val notes: String?,
     val image: String?
 )

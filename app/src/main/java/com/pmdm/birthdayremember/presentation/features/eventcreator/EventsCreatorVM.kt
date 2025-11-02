@@ -1,9 +1,13 @@
 package com.pmdm.birthdayremember.presentation.features.eventcreator
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pmdm.birthdayremember.application.usecase.event.GetAllEventsByNameAndGroupUseCase
+import com.pmdm.birthdayremember.application.usecase.event.GetAllEventsByNameUseCase
 import com.pmdm.birthdayremember.application.usecase.group.GetGroupsUseCase
-import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toListUi
+import com.pmdm.birthdayremember.presentation.mapper.toListUi
+import com.pmdm.birthdayremember.presentation.model.EventUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EventsCreatorVM @Inject constructor(
-    private val getGroupsUseCase: GetGroupsUseCase
+    private val getGroupsUseCase: GetGroupsUseCase,
+    private val getAllEventsByNameAndGroupUseCase: GetAllEventsByNameAndGroupUseCase,
+    private val getAllEventsByNameUseCase: GetAllEventsByNameUseCase
 ) : ViewModel() {
 
     // Properties
@@ -24,6 +30,7 @@ class EventsCreatorVM @Inject constructor(
     init {
         viewModelScope.launch {
             loadGroups()
+            loadBirthdays()
         }
     }
 
@@ -53,30 +60,86 @@ class EventsCreatorVM @Inject constructor(
         }
     }
 
-    private fun onShowBottomSheet(onEventParam: EventsCreatorEvent.OnShowBottomSheet) {
+    private fun onShowBottomSheet(onEventParam: EventsCreatorEvent.OnShowBottomSheet) =
+        _uiState.update { it.copy(showBottomSheet = onEventParam.isShow) }
+
+    private fun onSelectGroup(onEventParam: EventsCreatorEvent.OnSelectGroup) {
+        // Cuando seleccione un grupo, se cargara el grupo seleccionado y se creara un nuevo evento por defecto que estara en la lista
+        loadGroupSelected(onEventParam.idGroup)
+
+        viewModelScope.launch {
+            createEvent()
+        }
+
+
+    }
+
+    private suspend fun createEvent() {
+        val defaultBirthday = EventUiState(
+            groupUiState = uiState.value.groupSelected!!,
+            name = _uiState.value.name
+        )
+
+        if (existsBirthdayWithSameGroup(defaultBirthday.groupUiState.id)) {
+            Log.e(this.javaClass.name, "Ya existe un evento con el mismo grupo")
+            return
+        }
+
+        // Add a new birthday to the list using
+        val newListBirthday: List<EventUiState> =
+            _uiState.value.listBirthdays + defaultBirthday
+
         _uiState.update {
-            it.copy(showBottomSheet = onEventParam.isShow)
+            it.copy(listBirthdays = newListBirthday)
         }
     }
 
-    private fun onSelectGroup(onEventParam: EventsCreatorEvent.OnSelectGroup) {
-        _uiState.update {
-            if (it.groupSelected?.id == onEventParam.id) return
+    private suspend fun existsBirthdayWithSameGroup(idGroup: Int): Boolean {
+        val result = getAllEventsByNameAndGroupUseCase(
+            name = _uiState.value.name,
+            idGroup = idGroup
+        )
 
-            val groupSelected = it.listGroups.find { group -> group.id == onEventParam.id }
-            it.copy(groupSelected = groupSelected)
+        var flag = false
+        result.onSuccess {
+            flag = it.isNotEmpty()
+        }.onFailure {
+            flag = false
         }
+
+        return flag
     }
 
     // Load functions
-    private suspend fun loadGroups(){
+    private suspend fun loadGroups() {
         val result = getGroupsUseCase()
 
         result.onSuccess { listGroups ->
             _uiState.update { currentState ->
                 currentState.copy(listGroups = listGroups.toListUi())
             }
+        }
+    }
+
+    private suspend fun loadBirthdays() {
+        val result = getAllEventsByNameUseCase(_uiState.value.name)
+
+        result.onSuccess { listBirthdays ->
+            _uiState.update {
+                it.copy(listBirthdays = listBirthdays.toListUi())
+            }
+        }.onFailure {
 
         }
     }
+
+    private fun loadGroupSelected(idGroup: Int) {
+        _uiState.update {
+            if (it.groupSelected?.id == idGroup) return
+
+            val groupSelected = it.listGroups.find { group -> group.id == idGroup }
+            it.copy(groupSelected = groupSelected)
+        }
+    }
+
 }

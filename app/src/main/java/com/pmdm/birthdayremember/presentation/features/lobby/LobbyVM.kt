@@ -3,18 +3,17 @@ package com.pmdm.birthdayremember.presentation.features.lobby
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pmdm.birthdayremember.application.usecase.birthday.GetListBirthdaysUseCase
+import com.pmdm.birthdayremember.application.usecase.event.GetAllEventsUseCase
 import com.pmdm.birthdayremember.application.usecase.group.GetGroupUseCase
 import com.pmdm.birthdayremember.application.usecase.group.GetGroupsUseCase
 import com.pmdm.birthdayremember.presentation.components.bottombar.BottomBarAction
-import com.pmdm.birthdayremember.presentation.components.chip.ChipAction
 import com.pmdm.birthdayremember.presentation.components.topbar.TopBarAction
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyBottomBarActionsConfig
 import com.pmdm.birthdayremember.presentation.features.lobby.config.lobbyTopBarActionsConfig
 import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyEvent
 import com.pmdm.birthdayremember.presentation.features.lobby.event.LobbyNavigationEvent
-import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toListUi
-import com.pmdm.birthdayremember.presentation.features.lobby.mapper.toUi
+import com.pmdm.birthdayremember.presentation.mapper.toListUi
+import com.pmdm.birthdayremember.presentation.mapper.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LobbyVM @Inject constructor(
-    private val getListBirthdaysUseCase: GetListBirthdaysUseCase,
+    private val getAllEventsUseCase: GetAllEventsUseCase,
     private val getGroupsUseCase: GetGroupsUseCase,
     private val getGroupUseCase: GetGroupUseCase
 ) : ViewModel() {
@@ -102,7 +101,7 @@ class LobbyVM @Inject constructor(
 
     // Load Functions
     private suspend fun loadBirthdays() {
-        val result = getListBirthdaysUseCase()
+        val result = getAllEventsUseCase()
 
         result
             .onFailure {

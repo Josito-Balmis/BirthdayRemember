@@ -20,13 +20,14 @@ import androidx.compose.ui.unit.dp
 import com.pmdm.birthdayremember.domain.valueobject.Zodiac
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MAX_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
-import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.model.EventDetails
+import com.pmdm.birthdayremember.presentation.model.EventUiState
 import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 import java.time.LocalDate
 
 @Composable
-fun BirthdayCard(birthday: BirthdayUiState) {
+fun BirthdayCard(birthday: EventUiState) {
     Card(
         Modifier
             .padding(MIN_DP)
@@ -43,7 +44,7 @@ fun BirthdayCard(birthday: BirthdayUiState) {
                     imageVector = Icons.Filled.PersonPin,
                     contentDescription = "Generic icon from birthday person"
                 )
-                
+
                 Column {
                     Text(birthday.name)
 
@@ -63,10 +64,10 @@ fun PreviewBirthdayCard() {
         val fecha = LocalDate.of(2003, 2, 3)
 
         BirthdayCard(
-            BirthdayUiState(
+            EventUiState(
                 groupUiState = GroupUiState(),
                 name = "Yusep",
-                zodiac = Zodiac.getZodiacSignByDate(fecha),
+                eventDetails = EventDetails(),
                 date = fecha,
                 hasYear = true,
                 notes = "Me gustaria regalarle un nuevo piano.",

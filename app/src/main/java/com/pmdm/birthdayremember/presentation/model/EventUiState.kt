@@ -1,6 +1,5 @@
 package com.pmdm.birthdayremember.presentation.model
 
-import com.pmdm.birthdayremember.domain.valueobject.Zodiac
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -9,10 +8,10 @@ private val formatWithYear = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 private val formatWithoutYear = DateTimeFormatter.ofPattern("dd/MM")
 
 //Main class
-data class BirthdayUiState(
+data class EventUiState(
     val id: Int = 0,
     val groupUiState: GroupUiState = GroupUiState(),
-    val zodiac: Zodiac = Zodiac(Zodiac.ZodiacName.Ninguno),
+    val eventDetails: EventDetails = EventDetails(),
     val name: String = "",
     val date: LocalDate? = null,
     val hasYear: Boolean = true,

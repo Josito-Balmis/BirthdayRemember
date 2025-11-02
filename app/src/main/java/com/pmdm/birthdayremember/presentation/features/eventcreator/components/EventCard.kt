@@ -26,7 +26,7 @@ import com.pmdm.birthdayremember.presentation.components.globalvalues.MAX_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MID_DP
 import com.pmdm.birthdayremember.presentation.components.globalvalues.MIN_DP
 import com.pmdm.birthdayremember.presentation.features.eventcreator.EventsCreatorEvent
-import com.pmdm.birthdayremember.presentation.model.BirthdayUiState
+import com.pmdm.birthdayremember.presentation.model.EventUiState
 import com.pmdm.birthdayremember.presentation.model.GroupUiState
 import com.pmdm.birthdayremember.presentation.theme.BirthDayTheme
 import java.time.LocalDate
@@ -40,7 +40,7 @@ private val WIDTH_YEAR = 105.dp
 @Composable
 fun EventCard(
     groupUiState: GroupUiState,
-    birthdayUiState: BirthdayUiState?,
+    eventUiState: EventUiState?,
     onEvent: (EventsCreatorEvent) -> Unit
 ) {
     Card(Modifier
@@ -74,13 +74,13 @@ fun EventCard(
             Row(Modifier.align(Alignment.CenterHorizontally)) {
                 TextFieldDate(
                     modifier = Modifier.widthIn(max = WIDTH_DAY),
-                    date = birthdayUiState?.date?.dayOfMonth,
+                    date = eventUiState?.date?.dayOfMonth,
                     label = "Día",
                     validationState = MockValidation(false),
                     onValueChanged = { day ->
                         onEvent(
                             EventsCreatorEvent.OnDateChanged(
-                                birthdayUiState?.date!!.withDayOfMonth(day)
+                                eventUiState?.date!!.withDayOfMonth(day)
                             )
                         )
                     }
@@ -90,30 +90,30 @@ fun EventCard(
 
                 TextFieldDate(
                     modifier = Modifier.widthIn(max = WIDTH_DAY),
-                    date = birthdayUiState?.date?.monthValue,
+                    date = eventUiState?.date?.monthValue,
                     label = "Mes",
                     validationState = MockValidation(false),
                     onValueChanged = { month ->
                         onEvent(
                             EventsCreatorEvent.OnDateChanged(
-                                birthdayUiState?.date!!.withMonth(month)
+                                eventUiState?.date!!.withMonth(month)
                             )
                         )
                     }
                 )
 
-                if (birthdayUiState?.hasYear == true) {
+                if (eventUiState?.hasYear == true) {
                     Spacer(Modifier.padding(MID_DP))
 
                     TextFieldDate(
                         modifier = Modifier.widthIn(max = WIDTH_YEAR),
-                        date = birthdayUiState.date?.year,
+                        date = eventUiState.date?.year,
                         label = "Año",
                         validationState = MockValidation(false),
                         onValueChanged = { year ->
                             onEvent(
                                 EventsCreatorEvent.OnDateChanged(
-                                    birthdayUiState.date!!.withYear(year)
+                                    eventUiState.date!!.withYear(year)
                                 )
                             )
                         }
@@ -140,7 +140,7 @@ fun PreviewEventCard() {
 
                 ),
             onEvent = {},
-            birthdayUiState = BirthdayUiState().copy(date = LocalDate.now())
+            eventUiState = EventUiState().copy(date = LocalDate.now())
         )
     }
 }

@@ -1,34 +1,32 @@
 package com.pmdm.birthdayremember.infraestructure.room.mapper
 
-import com.pmdm.birthdayremember.domain.entity.Birthday
-import com.pmdm.birthdayremember.infraestructure.room.entity.BirthdayEntity
+import com.pmdm.birthdayremember.domain.entity.Event
+import com.pmdm.birthdayremember.domain.entity.Group
+import com.pmdm.birthdayremember.domain.valueobject.EventDate
+import com.pmdm.birthdayremember.infraestructure.room.entity.EventEntity
 
-fun BirthdayEntity.toDomain() = Birthday(
-    id,
-    idGroup,
-    zodiac,
-    name,
-    date,
-    hasYear,
-    notes,
-    image
+fun EventEntity.toDomain() = Event(
+    id = id,
+    group = Group(id = idGroup),
+    name = name,
+    eventDate = EventDate(date),
+    notes = notes,
+    image = image
 )
 
-fun Birthday.toDao() = BirthdayEntity(
-    id,
-    idGroup,
-    zodiac,
-    name,
-    date,
-    hasYear,
-    notes,
-    image
+fun Event.toDao() = EventEntity(
+    id = id,
+    idGroup = group.id,
+    name = name,
+    date = eventDate.localDate,
+    notes = notes,
+    image = image
 )
 
-fun List<BirthdayEntity>.toListDomain() = map {
+fun List<EventEntity>.toListDomain() = map {
     it.toDomain()
 }
 
-fun List<Birthday>.toListDao() = map {
+fun List<Event>.toListDao() = map {
     it.toDao()
 }

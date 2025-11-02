@@ -19,7 +19,7 @@ object RoomModule {
 
     @Provides
     @Singleton
-    fun provideBirthdayDao(db: AppDataBase) = db.birthdayDao()
+    fun provideBirthdayDao(db: AppDataBase) = db.eventDao()
 
     @Provides
     @Singleton

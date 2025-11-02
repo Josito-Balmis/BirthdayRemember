@@ -9,12 +9,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetAllEventsUseCase @Inject constructor(
+class GetAllEventsByNameUseCase @Inject constructor(
     private val eventRepository: EventRepository
 ) {
-    suspend operator fun invoke(): Result<List<Event>> {
+    suspend operator fun invoke(name: String): Result<List<Event>> {
         try {
-            val listEvents = eventRepository.get()
+            val listEvents = eventRepository.getAllByName(name)
 
             return Result.success(listEvents)
         } catch (e: IOException) {

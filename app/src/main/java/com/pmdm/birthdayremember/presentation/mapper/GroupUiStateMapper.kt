@@ -1,4 +1,4 @@
-package com.pmdm.birthdayremember.presentation.features.lobby.mapper
+package com.pmdm.birthdayremember.presentation.mapper
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.AlignHorizontalCenter
