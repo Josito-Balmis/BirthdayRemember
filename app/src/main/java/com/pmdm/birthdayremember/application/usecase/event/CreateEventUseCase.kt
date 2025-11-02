@@ -1,18 +1,18 @@
-package com.pmdm.birthdayremember.application.usecase.birthday
+package com.pmdm.birthdayremember.application.usecase.event
 
 import android.util.Log
-import com.pmdm.birthdayremember.domain.entity.Birthday
-import com.pmdm.birthdayremember.domain.repository.BirthdayRepository
+import com.pmdm.birthdayremember.domain.entity.Event
+import com.pmdm.birthdayremember.domain.repository.EventRepository
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
 @Singleton
 class CreateBirthdayUseCase @Inject constructor(
-    private val birthdayRepository: BirthdayRepository
+    private val eventRepository: EventRepository
 ) {
-    suspend operator fun invoke(birthday: Birthday): Result<Unit> {
+    suspend operator fun invoke(event: Event): Result<Unit> {
         try {
-            birthdayRepository.insert(birthday)
+            eventRepository.insert(event)
 
             return Result.success(Unit)
         } catch (e: Exception) {
